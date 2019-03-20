@@ -2,7 +2,8 @@
 # http://pwp.stevecassidy.net/bottle/forms-processing.html
 # https://bottle.readthedocs.io/en/latest/tutorial_app.html
 
-from bottle import route, run, template, debug
+from bottle import run, template, debug, Bottle
+from routes.users import usersRouter
 import sqlite3
 
 # create database
@@ -20,7 +21,9 @@ user = {
     'id': 470066919
 }
 
-@route('/')
+mainRoute = Bottle()
+
+@mainRoute.route('/')
 def homepage():
     info = {
         'user': user,
@@ -29,14 +32,14 @@ def homepage():
     }
     return template('home.tpl', info) # unsafe from malicious content
 
-@route('/contactus')
-def aboutus():
+@mainRoute.route('/contactus')
+def contactus():
     info = {
         'user': user
     }
     return template('contactus.tpl', info)
 
-@route('/login')
+@mainRoute.route('/login')
 def homepage():
     info = {
         'user': user
@@ -44,7 +47,7 @@ def homepage():
     return template('home.tpl', info) # unsafe from malicious content
 
 
-@route('/<url>')
+@mainRoute.route('/<url>')
 def error(url):
     info = {
         'user': user,
@@ -52,6 +55,7 @@ def error(url):
     }
     return template('error.tpl', info)
 
+mainRoute.mount('/users', usersRouter)
 debug(True) # full stacktrace of python interpreter
-run(host='localhost', port=8080, reloader=True)
+mainRoute.run(host='localhost', port=8080, reloader=True)
 # debug and reloader ONLY for dev env, not production env
