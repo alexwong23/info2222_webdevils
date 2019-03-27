@@ -1,12 +1,11 @@
 from bottle import template, Bottle, redirect, request, response
 import helperMethods
+
 import sqlite3
-
-COOKIE_SECRET_KEY = "some-secret"
-
 con = sqlite3.connect('./db/webdevils.db')
 cur = con.cursor()
 
+COOKIE_SECRET_KEY = "some-secret"
 indexRouter = Bottle()
 
 
