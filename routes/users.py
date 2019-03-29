@@ -10,7 +10,7 @@ usersRouter = Bottle()
 
 @usersRouter.route('/<unikey>')
 def userProfile(unikey):
-    cur.execute('SELECT unikey, password, name, is_admin FROM users WHERE unikey=(?)', (unikey,))
+    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
     user = helperMethods.userToDict(cur.fetchone())
     reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
     if(user is None or reqUnikey is None or reqUnikey != user['unikey']):
