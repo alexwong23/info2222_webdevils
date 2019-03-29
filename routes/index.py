@@ -34,7 +34,7 @@ def loginhandler():
     unikey = request.forms.get('unikey')
     password = request.forms.get('password')
     errors = helperMethods.validateForm(request.forms, ['unikey', 'password'])
-    cur.execute('SELECT unikey, password, name, is_admin FROM users WHERE unikey=(?)', (unikey,))
+    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
     user = helperMethods.userToDict(cur.fetchone())
     if(user is not None and unikey and password):
         if(user['unikey'] == unikey and user['password'] == password):
