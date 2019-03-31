@@ -1,5 +1,7 @@
 % rebase('layout.tpl')
 
+<a href="/users/{{unikey}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Back</a>
+
 <h2>Edit Password</h2>
 
 <form method="post" action="/users/changepassword" >
@@ -11,5 +13,9 @@
     <label for="confirm_password">Confirm Password</label>
     <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm password">
   </div>
-  <button type="submit" class="btn btn-primary">Change Password</button>
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+% if error:
+  <p style="color:#d9534f">{{error}}</p>
+% end

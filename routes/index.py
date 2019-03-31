@@ -65,29 +65,3 @@ def logout():
     response.delete_cookie('unikey')
     # remove user from session?
     return redirect('/')
-
-
-@indexRouter.route('/editprofile', method="POST")
-def editprofile():
-    first_name = request.forms.get('first_name')
-    last_name = request.forms.get('last_name')
-    reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    cur.execute(
-        'UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)', (first_name, last_name, reqUnikey))
-    con.commit()
-    return redirect(f"/users/{reqUnikey}")
-
-
-@indexRouter.route('/changepassword', methods="POST")
-def changepassword():
-    print("hello")
-    # new_password = request.forms.get('new_password')
-    # confirm_password = request.forms.get('confirm_password')
-    # reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    # if (new_password == confirm_password):
-    #     cur.execute(
-    #         'UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, reqUnikey))
-    #     con.commit()
-    #     return redirect(f"/users/{reqUnikey}")
-    # else:
-    #     return "wrong password"

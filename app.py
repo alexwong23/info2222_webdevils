@@ -14,8 +14,18 @@ cur = con.cursor()
 
 COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 app = Bottle()
+
+# from bottle import static_file, os
+# path = os.path.abspath(__file__)
+# dir_path = os.path.dirname(path)
+# print(dir_path)
 app.merge(indexRouter)
+# @app.route('/static/<filepath:path>')
+# def server_static(filepath):
+#     return static_file(filepath, root='/')
 app.mount('/users', usersRouter)
+
+
 
 @app.route('/<url:path>')
 def error(url):

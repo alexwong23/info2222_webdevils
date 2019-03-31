@@ -45,7 +45,11 @@ def userEditProfile(unikey):
 
 @usersRouter.route('/<unikey>/changepassword')
 def userChangePassword(unikey):
-    return template('changepassword.tpl')
+    info = {
+        'unikey': unikey,
+        'error': ''
+    }
+    return template('changepassword.tpl', info)
 
 
 @usersRouter.route('/editprofile', method="POST")
@@ -61,7 +65,6 @@ def editprofile():
 
 @usersRouter.route('/changepassword', method="POST")
 def changepassword():
-    print("hello")
     new_password = request.forms.get('new_password')
     confirm_password = request.forms.get('confirm_password')
     reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
@@ -71,4 +74,8 @@ def changepassword():
         con.commit()
         return redirect(f"/users/{reqUnikey}")
     else:
-        return "wrong password"
+        info = {
+            'unikey': reqUnikey,
+            'error': 'Passwords does not match. Please re-enter your new password'
+        }
+        return template('changepassword.tpl', info)
