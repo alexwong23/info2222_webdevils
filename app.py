@@ -10,7 +10,7 @@ from routes.users import usersRouter
 import sqlite3
 con = sqlite3.connect('./db/webdevils.db')
 cur = con.cursor()
-# import populate_data # import to generate db
+import populate_data # import to generate db
 
 COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 app = Bottle()

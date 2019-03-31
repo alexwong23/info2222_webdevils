@@ -46,13 +46,23 @@ con.execute("INSERT INTO category_types (name) VALUES ('CSS')")
 
 html_id = cur.execute("SELECT id FROM category_types WHERE name='HTML'").fetchone()[0]
 css_id = cur.execute("SELECT id FROM category_types WHERE name='CSS'").fetchone()[0]
-con.execute("INSERT INTO categories (name, type_id) VALUES ('Front end Tags', (?))", (html_id,))
+con.execute("INSERT INTO categories (name, type_id) VALUES ('Basic HTML', (?))", (html_id,))
+con.execute("INSERT INTO categories (name, type_id) VALUES ('Formatting', (?))", (html_id,))
+con.execute("INSERT INTO categories (name, type_id) VALUES ('Forms and Input', (?))", (html_id,))
 con.execute("INSERT INTO categories (name, type_id) VALUES ('Styling Tags', (?))", (css_id,))
 
-tags_id = cur.execute("SELECT id FROM categories WHERE name='Front end Tags'").fetchone()[0]
+basic_html_id = cur.execute("SELECT id FROM categories WHERE name='Basic HTML'").fetchone()[0]
 styles_id = cur.execute("SELECT id FROM categories WHERE name='Styling Tags'").fetchone()[0]
-con.execute("INSERT INTO content (title, description, category_id) VALUES ('<div>', 'div tags help to do great things', (?))", (tags_id,))
-con.execute("INSERT INTO content (title, description, category_id) VALUES ('class', 'classes can be set in html too', (?))", (styles_id,))
+def insert_content(title, description, category_id):
+    con.execute("INSERT INTO content (title, description, category_id) VALUES ((?), (?), (?))", (title, description, category_id,))
+insert_content('<!DOCTYPE>', 'Must be the very first thing in your HTML document, before the <html> tag', basic_html_id)
+insert_content('<html>', 'Tell the browser that this is an HTML document', basic_html_id)
+insert_content('<head>', 'A container for all the head elements', basic_html_id)
+insert_content('<title>', 'Required in all HTML documents, defines the title of the document', basic_html_id)
+insert_content('<body>', 'Defines the document\'s body, contains all the contents of an HTML document, such as text, hyperlinks, images, tables, lists, etc.', basic_html_id)
+insert_content('<h1> to <h6>', 'Defines HTML headings, <h1> being the most important and <h6> being the least important heading.', basic_html_id)
+insert_content('class', 'classes can be set in html too', styles_id)
+
 
 
 # merge into one table
