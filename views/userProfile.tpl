@@ -1,12 +1,12 @@
 % rebase('layout.tpl')
 
 % if(user):
-  <h3>Welcome {{user['name']}}!</h3>
+  <h3>Welcome {{user['first_name']}}!</h3>
   <h4>Your unikey is {{user['unikey']}}</h4>
-  <h1>User's name is {{user['name']}}</h1>
+  <h4>User's name is {{user['first_name']}} {{user['last_name']}}</h4>
   <h4>with an id of {{user['unikey']}}</h4>
-  <button type="button" onclick="location.href = '/edit';"class="btn btn-primary">Edit</button>
-  <button type="button" onclick="location.href = '/change_password';" class="btn btn-primary">Change Password</button>
+  <a href="/users/{{user['unikey']}}/edit" class="btn btn-primary active mr-2" role="button" aria-pressed="true">Edit Profile</a>
+  <a href="/users/{{user['unikey']}}/changepassword" class="btn btn-primary active mr-1" role="button" aria-pressed="true">Change Password</a>
 % else:
   <h3>Please login</h3>
 % end
