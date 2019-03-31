@@ -13,23 +13,16 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- collapsable Toggle CSS  -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="style2.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    <!--/ collapsable Toggle CSS  -->
 
     <!--Icons  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-
     <!-- Font Awesome JS (collapsable Toggle) -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
-
 
     <style>
       @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -229,57 +222,49 @@
     <div class="wrapper">
       <!-- Sidebar  -->
       <nav id="sidebar">
-
         <ul class="list-unstyled components">
-
-
           <!--HTML menu tab  -->
           <li class="active">
+            <a href="/">Home</a>
+          </li>
+          <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">HTML</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li>
-                <a href="#">Home 1</a>
+                <a href="/html/basic-html">Basic HTML</a>
               </li>
               <li>
-                <a href="#">Home 2</a>
+                <a href="/html/formatting">Formatting</a>
               </li>
               <li>
-                <a href="#">Home 3</a>
+                <a href="/html/forms-and-input">Forms and Input</a>
               </li>
             </ul>
           </li>
-
           <!--CSS menu tab  -->
           <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CSS</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <a href="#">Page 1</a>
+                <a href="/css/properties">Properties</a>
               </li>
               <li>
-                <a href="#">Page 2</a>
+                <a href="/css/selectors">Selectors</a>
               </li>
               <li>
-                <a href="#">Page 3</a>
+                <a href="/css/functions">Functions</a>
               </li>
             </ul>
           </li>
-
-
           <li>
-            <a href="#">About Us</a>
+            <a href="/aboutus">About Us</a>
           </li>
-
           <li>
-            <a href="#">Contact Us</a>
+            <a href="/contactus">Contact Us</a>
           </li>
-
-
-
         </ul>
 
         <ul class="list-unstyled CTAs">
-
           <!-- Footer -->
           <footer class="page-footer font-small unique-color-dark pt-4">
             <div class="footer-copyright text-center py-3">© 2019 Copyright:
@@ -288,7 +273,6 @@
           </footer>
           <!-- Footer -->
         </ul>
-
       </nav>
 
       <!-- This section is the static header -->

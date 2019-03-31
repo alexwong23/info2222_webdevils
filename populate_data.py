@@ -49,11 +49,16 @@ css_id = cur.execute("SELECT id FROM category_types WHERE name='CSS'").fetchone(
 con.execute("INSERT INTO categories (name, type_id) VALUES ('Basic HTML', (?))", (html_id,))
 con.execute("INSERT INTO categories (name, type_id) VALUES ('Formatting', (?))", (html_id,))
 con.execute("INSERT INTO categories (name, type_id) VALUES ('Forms and Input', (?))", (html_id,))
-con.execute("INSERT INTO categories (name, type_id) VALUES ('Styling Tags', (?))", (css_id,))
+con.execute("INSERT INTO categories (name, type_id) VALUES ('Properties', (?))", (css_id,))
+con.execute("INSERT INTO categories (name, type_id) VALUES ('Selectors', (?))", (css_id,))
+con.execute("INSERT INTO categories (name, type_id) VALUES ('Functions', (?))", (css_id,))
 
-basic_html_id = cur.execute("SELECT id FROM categories WHERE name='Basic HTML'").fetchone()[0]
-formatting_id = cur.execute("SELECT id FROM categories WHERE name='Formatting'").fetchone()[0]
-styles_id = cur.execute("SELECT id FROM categories WHERE name='Styling Tags'").fetchone()[0]
+basic_html_id = cur.execute("SELECT id FROM categories WHERE name='Basic HTML' AND type_id=(?)", (html_id,)).fetchone()[0]
+formatting_id = cur.execute("SELECT id FROM categories WHERE name='Formatting' AND type_id=(?)", (html_id,)).fetchone()[0]
+forms_id = cur.execute("SELECT id FROM categories WHERE name='Forms and Input' AND type_id=(?)", (html_id,)).fetchone()[0]
+properties_id = cur.execute("SELECT id FROM categories WHERE name='Properties' AND type_id=(?)", (css_id,)).fetchone()[0]
+selectors_id = cur.execute("SELECT id FROM categories WHERE name='Selectors' AND type_id=(?)", (css_id,)).fetchone()[0]
+functions_id = cur.execute("SELECT id FROM categories WHERE name='Functions' AND type_id=(?)", (css_id,)).fetchone()[0]
 def insert_content(title, description, category_id):
     con.execute("INSERT INTO content (title, description, category_id) VALUES ((?), (?), (?))", (title, description, category_id,))
 insert_content('<!DOCTYPE>', 'Must be the very first thing in your HTML document, before the <html> tag', basic_html_id)
@@ -77,15 +82,41 @@ insert_content('<del>', 'Defines text that has been deleted from a document.', f
 insert_content('<dfn>', 'Represents the defining instance of a term. The defining instance is often the first use of a term in a document.', formatting_id)
 insert_content('<em>', 'It is a phrase tag. It renders as emphasized text.', formatting_id)
 insert_content('<i>', 'Defines a part of text in an alternative voice or mood. The content of the <i> tag is usually displayed in italic. It can be used to indicate a technical term, a phrase from another language, etc.', formatting_id)
-insert_content('<ins>', 'Defines a text that has been inserted into a document.', formatting_id)
+insert_content('<ins>', 'Defines a text that has been inserted into a document. Browsers will normally strike a line through deleted text and underline inserted text.', formatting_id)
 insert_content('<kbd>', 'Defines keyboard input.', formatting_id)
 insert_content('<mark>', 'Defines marked/highlighted text.', formatting_id)
 insert_content('<meter>', 'Defines a scalar measurement within a known range (a gauge).', formatting_id)
 insert_content('<pre>', 'Defines preformatted text.', formatting_id)
-insert_content('<>', 'Comments are not displayed in the browsers.', formatting_id)
-insert_content('class', 'classes can be set in html too', styles_id)
-
-
+insert_content('<progress>', 'Represents the progress of a task.', formatting_id)
+insert_content('<q>', 'Defines a short quotation.', formatting_id)
+insert_content('<rp>', 'Defines what to show in browsers that do not support ruby annotations.', formatting_id)
+insert_content('<rt>', 'Defines an explanation/pronounciation of characters (for East Asian typography).', formatting_id)
+insert_content('<ruby>', 'Defines a ruby annotation (for East Asian typography).', formatting_id)
+insert_content('<s>', 'Defines text that is no longer correct.', formatting_id)
+insert_content('<samp>', 'Defines sample output from a computer program.', formatting_id)
+insert_content('<small>', 'Defines smaller text.', formatting_id)
+insert_content('<strong>', 'Defines important text.', formatting_id)
+insert_content('<sub>', 'Defines superscripted text.', formatting_id)
+insert_content('<template>', 'Defines a template.', formatting_id)
+insert_content('<time>', 'Defines a date/time.', formatting_id)
+insert_content('<u>', 'Defines text that should be stylistically different from normal text.', formatting_id)
+insert_content('<var>', 'Defines a variable.', formatting_id)
+insert_content('<wbr>', 'Defines a possible line-break.', formatting_id)
+insert_content('align-content', 'Specifies the alignment between the lines inside a flexible container when the items do not use all available space.', properties_id)
+insert_content('backface-visibility', 'Defines whether or not the back face of an element should be visible when facing the user.', properties_id)
+insert_content('caption-side', 'Specifies the placement of a table caption.', properties_id)
+insert_content('direction', 'Specifies the text direction/writing direction.', properties_id)
+insert_content('empty-cells', 'Specifies whether or not to display borders and background on empty cells in a table.', properties_id)
+insert_content('.class', 'Example .intro: Selects all elements with class="intro".', selectors_id)
+insert_content('#id', 'Example #firstname: Selects the element with id="firstname".', selectors_id)
+insert_content('*', 'Example *: Selects all elements.', selectors_id)
+insert_content('element ', 'Example p: Selects all <p> elements.', selectors_id)
+insert_content('element,element', 'Example div, p: Selects all <div> elements and all <p> elements.', selectors_id)
+insert_content('attr()', 'Returns the value of an attribute of the selected element.', functions_id)
+insert_content('calc()', 'Allows you to perform calculations to determine CSS property values.', functions_id)
+insert_content('cubic-bezier()', 'Defines a Cubic Bezier curve.', functions_id)
+insert_content('hsl()', 'Defines colors using the Hue-Saturation-Lightness model (HSL).', functions_id)
+insert_content('hsla()', 'Defines colors using the Hue-Saturation-Lightness-Alpha model (HSLA).', functions_id)
 
 # merge into one table
 con.execute("""CREATE TABLE all_content AS
