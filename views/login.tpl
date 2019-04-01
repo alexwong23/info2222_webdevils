@@ -1,4 +1,4 @@
-% rebase('layout.tpl')
+% rebase('layout.tpl', unikey=user['unikey'])
 
 <form method="post" action="/login">
   <div class="form-group">

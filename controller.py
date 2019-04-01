@@ -58,6 +58,10 @@ def get_contact():
 # Users
 #-----------------------------------------------------------------------------
 
+@get('/users')
+def redirect_profile():
+    return users.redirect_profile_page()
+
 @get('/users/<unikey>')
 def get_profile(unikey):
     return users.profile_page(unikey)

@@ -1,4 +1,4 @@
-% rebase('layout.tpl')
+% rebase('layout.tpl', unikey=user['unikey'])
 
 <a href="/users/{{unikey}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Back</a>
 

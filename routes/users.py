@@ -19,6 +19,10 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 # Users
 #-----------------------------------------------------------------------------
 
+def redirect_profile_page():
+    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
+    redirect('/users/' + str(req_unikey))
+
 def profile_page(unikey):
     cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
     user = helperMethods.userToDict(cur.fetchone())

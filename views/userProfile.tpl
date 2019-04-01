@@ -1,4 +1,4 @@
-% rebase('layout.tpl')
+% rebase('layout.tpl', unikey=user['unikey'])
 
 % if(user):
   <h3>Welcome {{user['first_name']}}!</h3>

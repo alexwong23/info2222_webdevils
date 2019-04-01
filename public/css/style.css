@@ -35,6 +35,15 @@ a:focus {
   border: none;
 }
 
+.navbar-brand>span {
+  color: #D04222;
+  font-weight: 500;
+}
+
+.navbar-brand .logo {
+  display: inline-block;
+}
+
 .line {
   width: 100%;
   height: 1px;
@@ -58,7 +67,7 @@ SIDEBAR STYLE
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #7386D5;
+  background: #D04222;
   color: #fff;
   transition: all 0.3s;
 }
@@ -69,7 +78,7 @@ SIDEBAR STYLE
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #6d7fcc;
+  background: #BA3C20;
 }
 
 #sidebar ul.components {
@@ -82,6 +91,10 @@ SIDEBAR STYLE
   padding: 10px;
 }
 
+#sidebar ul a {
+  color: #fff;
+}
+
 #sidebar ul li a {
   padding: 10px;
   font-size: 1.1em;
@@ -90,14 +103,14 @@ SIDEBAR STYLE
 }
 
 #sidebar ul li a:hover {
-  color: #7386D5;
+  color: #AA371D;
   background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
   color: #fff;
-  background: #6d7fcc;
+  background: #AA371D;
 }
 
 a[data-toggle="collapse"] {
@@ -115,7 +128,7 @@ a[data-toggle="collapse"] {
 ul ul a {
   font-size: 0.9em !important;
   padding-left: 30px !important;
-  background: #6d7fcc;
+  background: #AA371D;
 }
 
 ul.CTAs {
@@ -128,17 +141,6 @@ ul.CTAs a {
   display: block;
   border-radius: 5px;
   margin-bottom: 5px;
-}
-
-a.download {
-  background: #fff;
-  color: #7386D5;
-}
-
-a.article,
-a.article:hover {
-  background: #6d7fcc !important;
-  color: #fff !important;
 }
 
 /* ---------------------------------------------------
