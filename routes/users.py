@@ -1,81 +1,82 @@
-from bottle import template, Bottle, redirect, request, response
-import helperMethods
+from bottle import template, request, redirect
 
+import random, helperMethods
+'''
+    Our Model class
+    This should control the actual "logic" of your website
+    And nicely abstracts away the program logic from your page loading
+    It should exist as a separate layer to any database or data structure that you might be using
+    Nothing here should be stateful, if it's stateful let the database handle it
+'''
+
+# remove this and put it in sql file handler
 import sqlite3
 con = sqlite3.connect('./db/webdevils.db')
 cur = con.cursor()
+COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 
-COOKIE_SECRET_KEY = "some-secret"
-usersRouter = Bottle()
+#-----------------------------------------------------------------------------
+# Users
+#-----------------------------------------------------------------------------
 
-
-@usersRouter.route('/<unikey>')
-def userProfile(unikey):
-    cur.execute(
-        'SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
+def profile_page(unikey):
+    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
     user = helperMethods.userToDict(cur.fetchone())
-    reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    if(user is None or reqUnikey is None or reqUnikey != user['unikey']):
+    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
+    if(req_unikey is not None):
+        if(user is not None):
+            info = {'user': user}
+            return template('userProfile.tpl', info)
+        else:
+            return template('error.tpl', {
+                'title': 'User Error: Invalid Unikey Provided',
+                'message': 'Could not find a user with unikey: ' + user['unikey']
+            })
+    else: # user not logged in
         return template('error.tpl', {
-            'title': 'User Error',
-            'message': 'Invalid URL provided: ' + unikey
-        })
-    elif(user is not None):
-        info = {
-            'user': user
-        }
-        return template('userProfile.tpl', info)
-    else:
-        return template('error.tpl', {
-            'title': 'Error 404: Not Found',
-            'message': 'We could not find the requested URL: ' + unikey
+            'title': 'Error: Unable to access page',
+            'message': 'You have to login to view this page.'
         })
 
+#-----------------------------------------------------------------------------
+# Edit Profile
+#-----------------------------------------------------------------------------
 
-@usersRouter.route('/<unikey>/edit')
-def userEditProfile(unikey):
-    cur.execute(
-        'SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
+def edit_profile_page(unikey):
+    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
     user = helperMethods.userToDict(cur.fetchone())
     info = {
         'user': user
     }
-    return template('editprofile.tpl', info)  # u
+    return template('editprofile.tpl', info)
+
+def edit_profile_check(first_name, last_name):
+    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
+    cur.execute('UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)', (first_name, last_name, req_unikey))
+    con.commit()
+    return redirect(f"/users/{req_unikey}")
 
 
-@usersRouter.route('/<unikey>/changepassword')
-def userChangePassword(unikey):
+#-----------------------------------------------------------------------------
+# Change Password
+#-----------------------------------------------------------------------------
+
+def change_password_page(unikey):
     info = {
         'unikey': unikey,
         'error': ''
     }
     return template('changepassword.tpl', info)
 
-
-@usersRouter.route('/editprofile', method="POST")
-def editprofile():
-    first_name = request.forms.get('first_name')
-    last_name = request.forms.get('last_name')
-    reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    cur.execute(
-        'UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)', (first_name, last_name, reqUnikey))
-    con.commit()
-    return redirect(f"/users/{reqUnikey}")
-
-
-@usersRouter.route('/changepassword', method="POST")
-def changepassword():
-    new_password = request.forms.get('new_password')
-    confirm_password = request.forms.get('confirm_password')
-    reqUnikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
+def change_password_check(new_password, confirm_password):
+    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
     if (new_password == confirm_password):
-        cur.execute(
-            'UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, reqUnikey))
+        cur.execute('UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, req_unikey))
         con.commit()
-        return redirect(f"/users/{reqUnikey}")
+        return redirect(f"/users/{req_unikey}")
     else:
         info = {
-            'unikey': reqUnikey,
+            'unikey': req_unikey,
             'error': 'Passwords does not match. Please re-enter your new password'
         }
         return template('changepassword.tpl', info)

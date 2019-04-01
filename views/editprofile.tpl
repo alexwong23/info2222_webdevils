@@ -1,8 +1,6 @@
 % rebase('layout.tpl')
 
-
 <a href="/users/{{user['unikey']}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Back</a>
-
 
 <h2>Edit Profile</h2>
 

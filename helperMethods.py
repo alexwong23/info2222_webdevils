@@ -1,3 +1,5 @@
+from bottle import template
+
 def userToDict(tuple):
     if(tuple is None):
         return None
@@ -10,8 +12,7 @@ def userToDict(tuple):
     }
     return dict
 
-
-def validateForm(form, required):
+def formErrors(form, required):
     messages = []
     for field in required:
         value = form.get(field)

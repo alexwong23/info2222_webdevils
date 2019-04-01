@@ -1,0 +1,35 @@
+#-----------------------------------------------------------------------------
+# Submission
+#-----------------------------------------------------------------------------
+
+download, and serve bootstrap cdn for css and javascript
+  - style.css also imports google font
+
+layout page
+  - if user not logged in
+    - show login and sign up buttons
+    - show sign out and profile buttons
+
+user profile page
+  - hide edit profile and change password buttons
+  - show message button
+
+message page
+
+CSS Front end for:
+  - home
+  - content (html, css)
+  - about us & contact us
+  - profile page, edit and change password pages
+  - messages
+
+
+#-----------------------------------------------------------------------------
+# Extra
+#-----------------------------------------------------------------------------
+
+login page
+  - prevent access if user is logged in
+
+layout page
+- (extra) javascript side bar active class
