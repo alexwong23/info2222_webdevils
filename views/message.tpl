@@ -1,30 +1,13 @@
-% rebase('layout.tpl', unikey=user['unikey'])
-
 <link rel="stylesheet" text="text/css" href="/public/css/messages.css">
 <css src="/public/css/messages.css">
 
+% rebase('layout.tpl', unikey=user['unikey'])
 
-%
 <p class = "message_receiver">To: {{receiver['first_name']}}  {{receiver['last_name']}}</p>
-%
 
-<link rel="stylesheet" href="/public/css/style.css"/>
-<script src="/public/js/messages.js"></script>
-
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"
-
-
-<div class="container">
-<h3 class=" text-center">Messaging</h3>
-<div class="messaging">
+<div class="message_container">
+  <h3 class=" text-center">Messaging</h3>
+  <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
           <div class="headind_srch">
@@ -164,20 +147,7 @@
 
 
       <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 % for a in messages:
     <!--senders message -->
@@ -203,3 +173,5 @@
     </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<script src="/public/js/messages.js"></script>
