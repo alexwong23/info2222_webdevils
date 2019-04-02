@@ -2,6 +2,7 @@ from bottle import route, get, post, request, redirect, static_file
 
 import routes.index as index
 import routes.users as users
+import routes.messages as messages
 
 from bottle import response #do we need this?
 
@@ -82,6 +83,21 @@ def post_edit_profile():
     new_password = request.forms.get('new_password')
     confirm_password = request.forms.get('confirm_password')
     return users.change_password_check(new_password, confirm_password)
+
+
+
+#-----------------------------------------------------------------------------
+# Messages
+#-----------------------------------------------------------------------------
+
+@get('/messages/<receipient>')
+def message_template(receipient):
+    return messages.message_user(receipient)
+
+
+
+
+
 
 #-----------------------------------------------------------------------------
 # Error
