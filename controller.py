@@ -3,6 +3,7 @@ from bottle import route, get, post, request, redirect, static_file
 import routes.index as index
 import routes.users as users
 import routes.messages as messages
+import routes.admin as admin
 
 from bottle import response #do we need this?
 
@@ -100,6 +101,15 @@ def get_receiver_messages(receiver):
 def post_messages(receiver):
     text_Message = request.forms.get('textSend')
     return messages.messages_check(receiver, text_Message)
+
+#-----------------------------------------------------------------------------
+# Messages
+#-----------------------------------------------------------------------------
+
+@get('/admin')
+def get_admin():
+    return admin.admin_page()
+
 
 #-----------------------------------------------------------------------------
 # Error

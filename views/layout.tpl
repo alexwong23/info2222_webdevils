@@ -119,7 +119,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto" id="nav_right">
-                % if(unikey == ""):
+                % if(status == ""):
                 <li class="nav-item active">
                   <!-- <button type="button" class="btn btn-default btn-sm"> -->
                   <a class="nav-link" href="/login"><span class="glyphicon">&#xe008;</span> Login</a>
@@ -128,6 +128,11 @@
                   <a class="nav-link" href="/signup">Sign Up</a>
                 </li>
                 % else:
+                  % if(status == 1):
+                    <li class="nav-item">
+                      <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                  % end
                 <li class="nav-item">
                   <a class="nav-link" href="/messages">Messages</a>
                 </li>

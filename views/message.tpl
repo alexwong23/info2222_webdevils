@@ -1,7 +1,7 @@
 <link rel="stylesheet" text="text/css" href="/public/css/messages.css">
 <css src="/public/css/messages.css">
 
-  % rebase('layout.tpl', unikey=user['unikey'])
+  % rebase('layout.tpl', status=user['status'])
 
 
   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" -->

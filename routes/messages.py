@@ -23,7 +23,8 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 
 def all_messages_page():
     # incomplete
-    redirect('/messages/' + receiver['unikey'])
+    user = helperMethods.token_user_info()
+    redirect('/messages/' + user['unikey'])
 
 def messages_page(receiver):
     user = helperMethods.token_user_info()

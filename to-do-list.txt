@@ -2,8 +2,6 @@
 # Submission
 #-----------------------------------------------------------------------------
 
-ban and suspend user
-
 Sign up
 
 CSS Front end for:
@@ -13,31 +11,30 @@ CSS Front end for:
   - about us & contact us
   - profile page, edit and change password pages
 
-style.css also imports google font
+admin functions
+  - search for user
+  - ban and suspend user
 
 enable sessions
  - token validation for every page
- - login check needs to check if user is already logged in comparing to session db
 
 #-----------------------------------------------------------------------------
 # Extra
 #-----------------------------------------------------------------------------
 
-login page
-  - prevent access if user is logged in
-
-layout page
-- (extra) javascript side bar active class
-
-admin functionality
+style.css also imports google font
 
 hashing password
 
-snake case vs camel case
-single or double quotes
+conventions
+  - snake case vs camel case
+  - single or double quotes
 
 toggle sidebar functionality
-- should remain close after redirecting to other pages
+  - should remain close after redirecting to other pages
+
+sessions
+  - login check --> check if user is already logged by comparing to session db
 
 #-----------------------------------------------------------------------------
 # Authentication

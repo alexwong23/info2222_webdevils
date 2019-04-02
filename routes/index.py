@@ -20,12 +20,9 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 #-----------------------------------------------------------------------------
 
 def index_page():
-    info = {
-        'user': helperMethods.token_user_info(),
-        'addr': request.remote_addr,
-        'environ': request.environ['HTTP_USER_AGENT']
-    }
-    return template("index.tpl", info) # unsafe from malicious content
+    return template("index.tpl", {
+        'user': helperMethods.token_user_info()
+    }) # unsafe from malicious content
 
 #-----------------------------------------------------------------------------
 # Login

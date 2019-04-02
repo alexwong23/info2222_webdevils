@@ -1,4 +1,4 @@
-% rebase('layout.tpl', unikey=user['unikey'])
+% rebase('layout.tpl', status=user['status'])
 
 <h4>User's name is {{any_user['first_name']}} {{any_user['last_name']}}</h4>
 <h4>with an id of {{any_user['unikey']}}</h4>

@@ -1,3 +1,3 @@
 % rebase('layout.tpl', status=user['status'])
 
-<h1 class="hello">hello world</h1>
+<h1>admin page here</h1>

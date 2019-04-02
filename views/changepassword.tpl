@@ -1,4 +1,4 @@
-% rebase('layout.tpl', unikey=user['unikey'])
+% rebase('layout.tpl', status=user['status'])
 
 <h2>Edit Password</h2>
 
