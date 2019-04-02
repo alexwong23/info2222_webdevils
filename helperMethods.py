@@ -24,9 +24,6 @@ def userToDict(tuple):
         }
     return dict
 
-
-
-
 def formErrors(form, required):
     messages = []
     for field in required:

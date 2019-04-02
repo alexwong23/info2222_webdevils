@@ -3,12 +3,8 @@
 #-----------------------------------------------------------------------------
 
 enable sessions
- - create sessions db with secondary key of user
- - randomize token in login post
  - token validation for every page
-    - retrieve and check if cookie token exists in session db
-    - if so, retrieve user info using secondary UniKey
-- login check needs to check if user is already logged in comparing to session db
+ - login check needs to check if user is already logged in comparing to session db
 
 helper method user to dict
  - should not have password field

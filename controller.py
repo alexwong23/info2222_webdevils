@@ -62,7 +62,7 @@ def redirect_profile():
 
 @get('/users/<unikey>')
 def get_profile(unikey):
-    return users.profile_page()
+    return users.profile_page(unikey)
 
 @get('/users/<unikey>/edit')
 def get_edit_profile(unikey):
