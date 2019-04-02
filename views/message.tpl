@@ -57,7 +57,7 @@
                     <span class="time_date"> {{a[2][0]}} | {{a[2][1]}}</span> </div>
                   </div>
 
-                  <!--Receipients Message  -->
+                  <!--receivers Message  -->
                   % elif receiver['id'] == a[0]:
                   <div class="incoming_msg">
                     <!-- <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> -->

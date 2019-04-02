@@ -55,11 +55,18 @@ def login_check(unikey, password):
     user = helperMethods.userToDict(user_tuple)
     if(user is not None and unikey and password):
         if(user['unikey'] == unikey and user_tuple[2] == password):
-            token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
-            con.execute("INSERT INTO user_sessions (token, user_id, date_created) VALUES ((?), (?), datetime('now', 'localtime'))", (token, user['id'],))
-            con.commit()
-            response.set_cookie('token', token, secret=COOKIE_SECRET_KEY)
-            redirect('/users/' + unikey)
+            if(user['status'] == 3):
+                return template('error.tpl', {
+                    'user': helperMethods.token_user_info(),
+                    'title': 'Error: Account Banned',
+                    'message': 'Your account has been banned. Please contact the administrator for further inquiries.'
+                })
+            else:
+                token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
+                con.execute("INSERT INTO user_sessions (token, user_id, date_created) VALUES ((?), (?), datetime('now', 'localtime'))", (token, user['id'],))
+                con.commit()
+                response.set_cookie('token', token, secret=COOKIE_SECRET_KEY)
+                redirect('/users/' + unikey)
         else:
             errors.append('Login Failed: Invalid UniKey or Password.')
     elif(user is None and unikey and password):

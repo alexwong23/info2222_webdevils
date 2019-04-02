@@ -18,33 +18,16 @@ cur = con.cursor()
 COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 
 #-----------------------------------------------------------------------------
-# Template Message
+# Messages
 #-----------------------------------------------------------------------------
 
-def message_user(receipient):
-    updatedDict = {'user':{},'receiver':{},'messages':None,'othersReceivers':{}}
+def all_messages_page():
+    # incomplete
+    redirect('/messages/' + receiver['unikey'])
+
+def messages_page(receiver):
     user = helperMethods.token_user_info()
-
-    # SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
-    #     FROM messages JOIN users ON messages.receiver_id=users.id OR messages.sender_id=users.id
-    #     WHERE messages.sender_id=5 OR messages.receiver_id=5 ORDER BY messages.date_created ASC
-    receiver_tuple = cur.execute("""
-        SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
-        FROM messages JOIN users ON messages.receiver_id=users.id
-        WHERE messages.sender_id=(?) ORDER BY messages.date_created ASC""",
-        (user['id'],)).fetchone()
-    con.commit()
-    receiver = helperMethods.userToDict(receiver_tuple)
-    print("receiver is :" + receiver['unikey'])
-    if(receiver['unikey'] != ""):
-        redirect('/messages/' + receiver['unikey'])
-    else:
-        redirect('/messages/' + 'admin1')
-
-
-def message_user(receipient):
-    user = helperMethods.token_user_info()
-    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
+    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receiver,))
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
     messages = helperMethods.messages_to_list(user['id'], receiver['id'])
@@ -54,13 +37,17 @@ def message_user(receipient):
             'messages': messages
         })
 
-def message_user_send(receipient,text_Message):
+def messages_check(receiver,text_Message):
     user = helperMethods.token_user_info()
-
-    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
+    if(user['status'] == 2):
+        return template('error.tpl', {
+            'user': helperMethods.token_user_info(),
+            'title': 'Error: Account Muted',
+            'message': 'Your account is not allowed to message users. Please contact the administrator for further inquiries.'
+        })
+    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receiver,))
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
-
     if text_Message is "":
         redirect('/messages/'+receiver['unikey'])
     else:
@@ -69,19 +56,14 @@ def message_user_send(receipient,text_Message):
         redirect('/messages/'+receiver['unikey'])
 
 
-
-
-
-
-
-# @messageRouter.route('/<unikey>/<receipient>', method="GET")
-# def messageProfile(unikey,receipient):
-#     # cur.execute('SELECT id,unikey, text, date_created, sender_id, receiver_id FROM messages WHERE unikey=(?) AND sender_id=(?)', (unikey,receipient))
+# @messageRouter.route('/<unikey>/<receiver>', method="GET")
+# def messageProfile(unikey,receiver):
+#     # cur.execute('SELECT id,unikey, text, date_created, sender_id, receiver_id FROM messages WHERE unikey=(?) AND sender_id=(?)', (unikey,receiver))
 #     # user = helperMethods.userToMessages(cur.fetchone())
-#     # cur.execute('SELECT id,unikey, text, date_created, sender_id, receiver_id FROM messages WHERE unikey=(?)', (receipient,))
-#     # receipient = helperMethods.receipientToMessages(cur.fetchone())
-#     # user.update(receipient)
-#     dictMessage = {'user': unikey, 'receiver': receipient}
+#     # cur.execute('SELECT id,unikey, text, date_created, sender_id, receiver_id FROM messages WHERE unikey=(?)', (receiver,))
+#     # receiver = helperMethods.receiverToMessages(cur.fetchone())
+#     # user.update(receiver)
+#     dictMessage = {'user': unikey, 'receiver': receiver}
 #     return template('message.tpl',dictMessage)
 #
 # @messageRouter.route('/send', method="POST")

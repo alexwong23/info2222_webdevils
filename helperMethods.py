@@ -47,14 +47,11 @@ def dateSplitter(b):
     newlist.append(time)
     return newlist
 
-
 def usersList(a):
     newList = []
     for user in a:
         newList.append(user)
-
     return newList
-
 
 def formErrors(form, required):
     messages = []

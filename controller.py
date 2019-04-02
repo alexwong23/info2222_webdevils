@@ -84,32 +84,22 @@ def post_edit_profile():
     confirm_password = request.forms.get('confirm_password')
     return users.change_password_check(new_password, confirm_password)
 
-
-
 #-----------------------------------------------------------------------------
 # Messages
 #-----------------------------------------------------------------------------
 
 @get('/messages')
-def redirect_messages():
-    return messages.redirect_messages_page()
+def get_all_messages():
+    return messages.all_messages_page()
 
-@get('/messages/<receipient>')
-def message_template(receipient):
-    return messages.message_user(receipient)
+@get('/messages/<receiver>')
+def get_receiver_messages(receiver):
+    return messages.messages_page(receiver)
 
-@post('/messages/<receipient>/send')
-def message_template_send(receipient):
-    # print(" controller here")
+@post('/messages/<receiver>/send')
+def post_messages(receiver):
     text_Message = request.forms.get('textSend')
-    return messages.message_user_send(receipient,text_Message)
-
-
-
-
-
-
-
+    return messages.messages_check(receiver, text_Message)
 
 #-----------------------------------------------------------------------------
 # Error

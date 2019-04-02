@@ -41,7 +41,9 @@ users = [
     ('user3', 'password', 0, 'Kirath', 'Singh'),
     ('user4', 'password', 0, 'Tim', 'Tam'),
     ('user5', 'password', 0, 'Alan', 'Fekete'),
-    ('user6', 'password', 0, 'David', 'Black')
+    ('user6', 'password', 0, 'David', 'Black'),
+    ('user7', 'password', 2, 'Muted', 'User'),
+    ('user8', 'password', 3, 'Banned', 'User')
 ]
 
 
