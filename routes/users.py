@@ -20,24 +20,18 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 #-----------------------------------------------------------------------------
 
 def redirect_profile_page():
-    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    redirect('/users/' + str(req_unikey))
+    user = helperMethods.token_user_info()
+    redirect('/users/' + user['unikey'])
 
-def profile_page(unikey):
-    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
-    user = helperMethods.userToDict(cur.fetchone())
-    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    if(req_unikey is not None):
-        if(user is not None):
-            info = {'user': user}
-            return template('userProfile.tpl', info)
-        else:
-            return template('error.tpl', {
-                'title': 'User Error: Invalid Unikey Provided',
-                'message': 'Could not find a user with unikey: ' + user['unikey']
-            })
+def profile_page():
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        return template('userProfile.tpl', {
+            'user': user
+        })
     else: # user not logged in
         return template('error.tpl', {
+            'user': user,
             'title': 'Error: Unable to access page',
             'message': 'You have to login to view this page.'
         })
@@ -49,9 +43,7 @@ def profile_page(unikey):
 def edit_profile_page(unikey):
     cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
     user = helperMethods.userToDict(cur.fetchone())
-    info = {
-        'user': user
-    }
+    info = {'user': user}
     return template('editprofile.tpl', info)
 
 def edit_profile_check(first_name, last_name):

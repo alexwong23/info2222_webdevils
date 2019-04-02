@@ -36,7 +36,7 @@ a:focus {
 }
 
 .navbar-brand>span {
-  color: #D04222;
+  color: #FF5841;
   font-weight: 500;
 }
 
@@ -67,7 +67,7 @@ SIDEBAR STYLE
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #D04222;
+  background: #FF5841;
   color: #fff;
   transition: all 0.3s;
 }
@@ -78,7 +78,21 @@ SIDEBAR STYLE
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #BA3C20;
+  background: #DE4D39;
+}
+
+#sidebar .sidebar-header>a {
+  color: #000000;
+  font-size: 2em;
+}
+
+#sidebar .sidebar-header>a>span {
+  color: #FF882F;
+  font-weight: 500;
+}
+
+#sidebar .sidebar-header>a:hover {
+  text-decoration: none;
 }
 
 #sidebar ul.components {
@@ -103,14 +117,14 @@ SIDEBAR STYLE
 }
 
 #sidebar ul li a:hover {
-  color: #AA371D;
+  color: #E8303E;
   background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
   color: #fff;
-  background: #AA371D;
+  background: #E8303E;
 }
 
 a[data-toggle="collapse"] {
@@ -128,7 +142,7 @@ a[data-toggle="collapse"] {
 ul ul a {
   font-size: 0.9em !important;
   padding-left: 30px !important;
-  background: #AA371D;
+  background: #E8303E;
 }
 
 ul.CTAs {

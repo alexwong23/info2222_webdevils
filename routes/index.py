@@ -1,6 +1,6 @@
 from bottle import template, request, redirect, response
 
-import random, helperMethods
+import string, random, helperMethods
 '''
     Our Model class
     This should control the actual "logic" of your website
@@ -21,6 +21,7 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 
 def index_page():
     info = {
+        'user': helperMethods.token_user_info(),
         'addr': request.remote_addr,
         'environ': request.environ['HTTP_USER_AGENT']
     }
@@ -31,75 +32,75 @@ def index_page():
 #-----------------------------------------------------------------------------
 
 def login_page():
-    info = {
-        'user': {'unikey': ""},
-        'message': ''
-    }
-    return template("login.tpl", info)  # unsafe from malicious content
-
-
-
-#-----------------------------------------------------------------------------
+    # secure login page, if user is already logged in
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ''):
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'message': 'You are already logged in.'
+        })
+    else:
+        return template("login.tpl", {
+            'user': user,
+            'message': ''
+        })
 
 # Check the login credentials
 def login_check(unikey, password):
-    # # By default assume bad creds
-    # login = True
-    #
-    # if username != "admin": # Wrong Username
-    #     err_str = "Incorrect Username"
-    #     login = False
-    #
-    # if password != "password": # Wrong password
-    #     err_str = "Incorrect Password"
-    #     login = False
-    #
-    # if login:
-    #     return page_view("valid", name=username)
-    # else:
-    #     return
-
-
     errors = helperMethods.formErrors(request.forms, ['unikey', 'password'])
-    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
-    user = helperMethods.userToDict(cur.fetchone())
+    user_tuple = cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,)).fetchone()
+    con.commit()
+    user = helperMethods.userToDict(user_tuple)
     if(user is not None and unikey and password):
-        if(user['unikey'] == unikey and user['password'] == password):
-            response.set_cookie('unikey', user['unikey'], secret=COOKIE_SECRET_KEY)
+        if(user['unikey'] == unikey and user_tuple[2] == password):
+            token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
+            con.execute("INSERT INTO user_sessions (token, user_id, date_created) VALUES ((?), (?), datetime('now', 'localtime'))", (token, user['id'],))
+            con.commit()
+            response.set_cookie('token', token, secret=COOKIE_SECRET_KEY)
             redirect('/users/' + unikey)
         else:
             errors.append('Login Failed: Invalid UniKey or Password.')
     elif(user is None and unikey and password):
         errors.append("Login Failed: The user does not exist.")
-    info = {
-        'user': {'unikey': unikey},
+    user = helperMethods.token_user_info()
+    user['unikey'] = unikey # save user input
+    return template("login.tpl", {
+        'user': user,
         'message': errors
-    }
-    return template("login.tpl", info)
+    })
+
+def logout_check():
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ''):
+        token = request.get_cookie('token', secret=COOKIE_SECRET_KEY)
+        con.execute("DELETE FROM user_sessions WHERE token=(?)", (token,))
+        con.commit()
+        response.delete_cookie('token')
+        return template("login.tpl", {
+            'user': helperMethods.token_user_info(),
+            'message': ''
+        })
+    else:
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Logout Error:',
+            'message': 'You are not logged in.'
+        })
 
 #-----------------------------------------------------------------------------
 # About Us & Contact Us
 #-----------------------------------------------------------------------------
 
 def about_page():
-    return template("about.tpl")
+    return template("about.tpl", {
+        'user': helperMethods.token_user_info()
+    })
 
 def contact_page():
-    return template("contact.tpl")
-
-# info = {
-#     'garble': about_garble()
-# }
-
-# # Returns a random string each time
-# def about_garble():
-#     garble = ["leverage agile frameworks to provide a robust synopsis for high level overviews.",
-#     "iterate approaches to corporate strategy and foster collaborative thinking to further the overall value proposition.",
-#     "organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-#     "bring to the table win-win survival strategies to ensure proactive domination.",
-#     "ensure the end of the day advancement, a new normal that has evolved from generation X and is on the runway heading towards a streamlined cloud solution.",
-#     "provide user generated content in real-time will have multiple touchpoints for offshoring."]
-#     return garble[random.randint(0, len(garble) - 1)]
+    return template("contact.tpl", {
+        'user': helperMethods.token_user_info()
+    })
 
 #-----------------------------------------------------------------------------
 # Error
@@ -107,6 +108,7 @@ def contact_page():
 
 def error_page(url):
     return template("error.tpl", {
+        'user': helperMethods.token_user_info(),
         'title': 'Error: 404 Not Found',
         'message': 'We could not find the requested URL: ' + url
     })

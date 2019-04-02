@@ -41,10 +41,7 @@ def post_login():
 
 @get('/logout')
 def get_logout_controller():
-    # if user is NOT logged in
-        # redirect back to login page
-    response.delete_cookie('unikey') # remove user from session?
-    return redirect('/login')
+    return index.logout_check()
 
 @get('/about')
 def get_about():
@@ -64,7 +61,7 @@ def redirect_profile():
 
 @get('/users/<unikey>')
 def get_profile(unikey):
-    return users.profile_page(unikey)
+    return users.profile_page()
 
 @get('/users/<unikey>/edit')
 def get_edit_profile(unikey):

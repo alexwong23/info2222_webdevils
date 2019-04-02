@@ -31,6 +31,12 @@
     <div class="wrapper">
       <!-- Sidebar  -->
       <nav id="sidebar">
+        <div class="sidebar-header">
+          <a href="/">
+            <img class="logo" src="/public/images/devil_icon.png" width="50" height="50" alt="Logo">
+            Web<span>Devils</span>
+          </a>
+        </div>
         <ul class="list-unstyled components">
           <!--HTML menu tab  -->
           <li class="active">
