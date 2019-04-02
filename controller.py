@@ -94,6 +94,12 @@ def post_edit_profile():
 def message_template(receipient):
     return messages.message_user(receipient)
 
+# @post('messages/<receipient>/send')
+# def message_template_send(receipient):
+#
+#     text_Message = request.forms.get()
+#
+#     return messages.message_user_send(receipient)
 
 
 
