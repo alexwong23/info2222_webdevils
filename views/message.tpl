@@ -1,168 +1,106 @@
-% rebase('layout.tpl', unikey=user['unikey'])
-
 <link rel="stylesheet" text="text/css" href="/public/css/messages.css">
 <css src="/public/css/messages.css">
 
+    % rebase('layout.tpl', unikey=user['unikey'])
 
 
-
-<link rel="stylesheet" href="/public/css/style.css"/>
-<script src="/public/js/messages.js"></script>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" -->
 
 
-<!------ Include the above in your HEAD tag ---------->
+    <div class="message_container">
+        <h3 class=" text-center">Messaging</h3>
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="inbox_people">
+
+                    <div class="headind_srch">
+
+                        <div class="recent_heading">
+                            <h4>Recent</h4>
+                        </div>
+
+                        <div class="srch_bar">
+                            <div class="stylish-input-group">
+                                <input type="text" class="search-bar"  placeholder="Search" >
+                                <span class="input-group-addon">
+                                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                </span> </div>
+                            </div>
+                        </div>
+
+                        <!--Messages chat box  -->
+                        <div class="inbox_chat">
+                            %for a in othersReceivers
+                            <div class="chat_list active_chat">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions
+                                            astrology under one roof.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
+                        <div class="mesgs">
+                            <div class="msg_history">
 
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" -->
+                                % for a in messages:
+                                <!--senders message -->
+                                % if user['id'] == a[0]:
+                                <div class="outgoing_msg">
+                                    <div class="sent_msg">
+                                        <p>{{a[1]}}</p>
+                                        <span class="time_date"> {{a[2][0]}} | {{a[2][1]}}</span> </div>
+                                    </div>
 
-
-<div class="container">
-<h3 class=" text-center">Messaging</h3>
-<div class="messaging">
-      <div class="inbox_msg">
-
-        <div class="inbox_people">
-
-          <div class="headind_srch">
-
-            <div class="recent_heading">
-              <h4>Recent</h4>
-            </div>
-
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-            </div>
-          </div>
-
-          <!--Messages chat box  -->
-          <div class="inbox_chat">
-            <div class="chat_list active_chat">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                                    <!--Receipients Message  -->
+                                    % elif receiver['id'] == a[0]:
+                                    <div class="incoming_msg">
+                                        <!-- <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> -->
+                                        <div class="incoming_msg_img"> <div class="circle">{{receiver['first_name'][0]}}</div> </div>
+                                        <div class="received_msg">
+                                            <div class="received_withd_msg">
+                                                <p>{{a[1]}}</p>
+                                                <span class="time_date"> {{a[2][0]}} | {{a[2][1]}}</span></div>
+                                            </div>
+                                        </div>
+                                        %end
+                                        % end
+                                    </div>
 
 
-        <div class="mesgs">
-          <div class="msg_history">
+                                    <div class="type_msg">
+                                        <div class="input_msg_write">
 
-              % for a in messages:
-                  <!--senders message -->
-                  % if user['id'] == a[0]:
-                  <div class="outgoing_msg">
-                    <div class="sent_msg">
-                      <p>{{a[1]}}</p>
-                      <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                  </div>
+                                            <form method="post" class ="write_msg" placeholder="Type a message" action="/messages/{{receiver['unikey']}}/send">
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label for="comment">Message To: {{receiver['first_name']}}  {{receiver['last_name']}}:</label>
+                                                        <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                  <!--Receipients Message  -->
-                  % elif receiver['id'] == a[0]:
+                            </div>
+                        </div>
 
-                  <div class="incoming_msg">
 
-                    <!-- <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> -->
-                    <div class="incoming_msg_img"> <div class="circle">{{receiver['first_name'][0]}}</div> </div>
-                    <div class="received_msg">
-                      <div class="received_withd_msg">
-                        <p>{{a[1]}}</p>
-                        <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                        <!--
+                        <form method="post" action="/messages/{{receiver['unikey']}}/send">
+                        <div class="form-group">
+
+                        <div class="form-group">
+                        <label for="comment">Message:</label>
+                        <textarea name="textSend"class="form-control" rows="10" id="comment"></textarea>
                     </div>
-                  </div>
-                  %end
-              % end
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
-            <!-- Message received -->
-
-
-            <!--Senders message  -->
-
-
-
-          </div>
-
-
-          <div class="type_msg">
-            <div class="input_msg_write">
-
-                <form method="post" class ="write_msg" placeholder="Type a message" action="/messages/{{receiver['unikey']}}/send">
-                  <div class="form-group">
-                    <div class="form-group">
-                        <label for="comment">Message To: {{receiver['first_name']}}  {{receiver['last_name']}}:</label>
-                        <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea>
-                    </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-
-
-              <!-- <input type="text" class="write_msg" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button> -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- <form method="post" action="/messages/{{receiver['unikey']}}/send">
-        <div class="form-group">
-
-          <div class="form-group">
-              <label for="comment">Message:</label>
-              <textarea name="textSend"class="form-control" rows="10" id="comment"></textarea>
-          </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% for a in messages:
-    <!--senders message -->
-    % if user['id'] == a[0]:
-        <div class = "sender_message">
-            <p style="color:red;">{{a[1]}}</p>
-        </div>
-
-    <!--Receipients Message  -->
-    % elif receiver['id'] == a[0]:
-        <div class = "receipient_message">
-            <p style="color:green;">{{a[1]}}</p>
-        </div>
-    %end
-% end
-<!--
-<form method="post" action="/messages/{{receiver['unikey']}}/send">
-  <div class="form-group">
-
-    <div class="form-group">
-        <label for="comment">Message:</label>
-        <textarea name="textSend"class="form-control" rows="10" id="comment"></textarea>
-    </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> -->

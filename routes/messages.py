@@ -22,7 +22,7 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 #-----------------------------------------------------------------------------
 
 def message_user(receipient):
-    updatedDict = {'user':{},'receiver':{},'messages':None}
+    updatedDict = {'user':{},'receiver':{},'messages':None,'othersReceivers':{}}
     user = helperMethods.token_user_info()
     updatedDict['user'] = user
 
@@ -31,31 +31,15 @@ def message_user(receipient):
     updatedDict['receiver'] = helperMethods.userToDict(cur.fetchone())
 
 
-
-    # cur.execute('SELECT text FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC',(updatedDict['user']['id'],updatedDict['receiver']['id'],))
-    # con.commit()
-    # allMessages = cur.fetchall()
-
-#     SELECT *
-# FROM (  SELECT SUM(Fdays) AS fDaysSum
-#         FROM tblFieldDays
-#         WHERE tblFieldDays.NameCode=35
-#         AND tblFieldDays.WeekEnding=1) A -- use you real query here
-# CROSS JOIN (SELECT SUM(CHdays) AS hrsSum
-#             FROM tblChargeHours
-#             WHERE tblChargeHours.NameCode=35
-#             AND tblChargeHours.WeekEnding=1) B -- use you real query here
-
-    cur.execute('SELECT * FROM (SELECT sender_id ,text FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) OR (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC)',(updatedDict['user']['id'],updatedDict['receiver']['id'],updatedDict['receiver']['id'],updatedDict['user']['id']))
+    cur.execute('SELECT * FROM (SELECT sender_id ,text, date_created FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) OR (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC)',(updatedDict['user']['id'],updatedDict['receiver']['id'],updatedDict['receiver']['id'],updatedDict['user']['id']))
     con.commit()
     allMessages = helperMethods.userToMessageAttacher(cur.fetchall())
     updatedDict['messages']= allMessages
 
-
-
-    # cur.execute('SELECT text FROM messages WHERE sender_id = (?) AND receiver_id = (?) ORDERBY date_created ASC',(receipient['id'],user['id'],))
-    # con.commit()
-    # sender_messages = cur.fetchone()
+    cur.execute('SELECT receiver_id FROM messages WHERE sender_id =(?)',(updatedDict['user']['id'],))
+    con.commit()
+    allReceivers = helperMethods.usersList(cur.fetchall())
+    updatedDict['othersReceivers'] = allReceivers
 
     return template('message.tpl',updatedDict)
 
@@ -68,12 +52,12 @@ def message_user_send(receipient,text_Message):
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
 
-
-    cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
-    con.commit()
-
-    stringer = '/messages/'+receiver['unikey']
-    redirect(stringer)
+    if text_Message is "":
+        redirect('/messages/'+receiver['unikey'])
+    else:
+        cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
+        con.commit()
+        redirect('/messages/'+receiver['unikey'])
 
 
 

@@ -28,9 +28,27 @@ def userToMessageAttacher(tuples):
     messagesList = []
 
     for a in tuples:
-        messagesList.append((a[0],a[1]))
+
+        messagesList.append((a[0],a[1],dateSplitter(a[2])))
 
     return messagesList
+
+def dateSplitter(b):
+    newlist = []
+    list_strings = b.split()
+    date = list_strings[0]
+    time = list_strings[1]
+    newlist.append(date)
+    newlist.append(time)
+    return newlist
+
+
+def usersList(a):
+    newList = []
+    for user in a:
+        newList.append(user)
+
+    return newList
 
 
 
