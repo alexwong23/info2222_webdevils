@@ -90,6 +90,10 @@ def post_edit_profile():
 # Messages
 #-----------------------------------------------------------------------------
 
+@get('/messages')
+def redirect_messages():
+    return messages.redirect_messages_page()
+
 @get('/messages/<receipient>')
 def message_template(receipient):
     return messages.message_user(receipient)

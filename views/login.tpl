@@ -3,7 +3,7 @@
 <form method="post" action="/login">
   <div class="form-group">
     <label for="exampleInputEmail1">UniKey</label>
-    <input type="text" name="unikey" value="{{user['unikey']}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter UniKey">
+    <input type="text" name="unikey" value="{{user_input}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter UniKey">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>

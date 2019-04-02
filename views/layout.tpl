@@ -129,7 +129,7 @@
                 </li>
                 % else:
                 <li class="nav-item">
-                  <a class="nav-link" href="/users">Messages</a>
+                  <a class="nav-link" href="/messages">Messages</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/users">Profile</a>

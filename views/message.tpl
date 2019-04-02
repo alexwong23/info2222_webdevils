@@ -7,9 +7,7 @@
   <h3 class=" text-center">Messaging</h3>
   <div class="messaging">
       <div class="inbox_msg">
-
         <div class="inbox_people">
-
           <div class="headind_srch">
 
             <div class="recent_heading">
@@ -79,7 +77,7 @@
                   <div class="form-group">
                     <div class="form-group">
                         <label for="comment">Message To: {{receiver['first_name']}}  {{receiver['last_name']}}:</label>
-                        <!-- <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea> -->
+                        <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea>
                     </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -91,40 +89,7 @@
           </div>
         </div>
       </div>
-
-
-<<<<<<< HEAD
-      <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
 </div>
-=======
-      <!-- <form method="post" action="/messages/{{receiver['unikey']}}/send">
-        <div class="form-group">
-
-          <div class="form-group">
-              <label for="comment">Message:</label>
-              <textarea name="textSend"class="form-control" rows="10" id="comment"></textarea>
-          </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 754f3123bfbbbef7e276e11941e4e754019808e6
 
 % for a in messages:
     <!--senders message -->
@@ -152,7 +117,7 @@
 <<<<<<< HEAD
 </form>
 
-<script src="/public/js/messages.js"></script>
+
 =======
 </form> -->
->>>>>>> 754f3123bfbbbef7e276e11941e4e754019808e6
+<script src="/public/js/messages.js"></script>

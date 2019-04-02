@@ -24,15 +24,19 @@ def userToDict(tuple):
         }
     return dict
 
-def userToMessageAttacher(tuples):
-    messagesList = []
-
-    for a in tuples:
-        messagesList.append((a[0],a[1]))
-
-    return messagesList
-
-
+def messages_to_list(user_id, receiver_id):
+    # cross join
+    messages_tuple = cur.execute("""SELECT * FROM
+        (SELECT sender_id ,text FROM messages
+            WHERE (sender_id = (?) AND receiver_id = (?))
+            OR (sender_id = (?) AND receiver_id = (?))
+            ORDER BY date_created ASC)""",
+        (user_id, receiver_id, receiver_id, user_id)).fetchall()
+    con.commit()
+    messages_list = []
+    for a in messages_tuple:
+        messages_list.append((a[0],a[1]))
+    return messages_list
 
 def formErrors(form, required):
     messages = []

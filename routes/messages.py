@@ -21,45 +21,37 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 # Template Message
 #-----------------------------------------------------------------------------
 
-def message_user(receipient):
-    updatedDict = {'user':{},'receiver':{},'messages':None}
+def redirect_messages_page():
     user = helperMethods.token_user_info()
-    updatedDict['user'] = user
 
+    # SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
+    #     FROM messages JOIN users ON messages.receiver_id=users.id OR messages.sender_id=users.id
+    #     WHERE messages.sender_id=5 OR messages.receiver_id=5 ORDER BY messages.date_created ASC
+    receiver_tuple = cur.execute("""
+        SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
+        FROM messages JOIN users ON messages.receiver_id=users.id
+        WHERE messages.sender_id=(?) ORDER BY messages.date_created ASC""",
+        (user['id'],)).fetchone()
+    con.commit()
+    receiver = helperMethods.userToDict(receiver_tuple)
+    print("receiver is :" + receiver['unikey'])
+    if(receiver['unikey'] != ""):
+        redirect('/messages/' + receiver['unikey'])
+    else:
+        redirect('/messages/' + 'admin1')
+
+
+def message_user(receipient):
+    user = helperMethods.token_user_info()
     cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
     con.commit()
-    updatedDict['receiver'] = helperMethods.userToDict(cur.fetchone())
-
-
-
-    # cur.execute('SELECT text FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC',(updatedDict['user']['id'],updatedDict['receiver']['id'],))
-    # con.commit()
-    # allMessages = cur.fetchall()
-
-#     SELECT *
-# FROM (  SELECT SUM(Fdays) AS fDaysSum
-#         FROM tblFieldDays
-#         WHERE tblFieldDays.NameCode=35
-#         AND tblFieldDays.WeekEnding=1) A -- use you real query here
-# CROSS JOIN (SELECT SUM(CHdays) AS hrsSum
-#             FROM tblChargeHours
-#             WHERE tblChargeHours.NameCode=35
-#             AND tblChargeHours.WeekEnding=1) B -- use you real query here
-
-    cur.execute('SELECT * FROM (SELECT sender_id ,text FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) OR (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC)',(updatedDict['user']['id'],updatedDict['receiver']['id'],updatedDict['receiver']['id'],updatedDict['user']['id']))
-    con.commit()
-    allMessages = helperMethods.userToMessageAttacher(cur.fetchall())
-    updatedDict['messages']= allMessages
-
-
-
-    # cur.execute('SELECT text FROM messages WHERE sender_id = (?) AND receiver_id = (?) ORDERBY date_created ASC',(receipient['id'],user['id'],))
-    # con.commit()
-    # sender_messages = cur.fetchone()
-
-    return template('message.tpl',updatedDict)
-
-
+    receiver = helperMethods.userToDict(cur.fetchone())
+    messages = helperMethods.messages_to_list(user['id'], receiver['id'])
+    return template('message.tpl', {
+            'user': user,
+            'receiver': receiver,
+            'messages': messages
+        })
 
 def message_user_send(receipient,text_Message):
     user = helperMethods.token_user_info()
@@ -67,7 +59,6 @@ def message_user_send(receipient,text_Message):
     cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
-
 
     cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
     con.commit()

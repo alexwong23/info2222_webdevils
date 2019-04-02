@@ -43,6 +43,7 @@ def login_page():
     else:
         return template("login.tpl", {
             'user': user,
+            'user_input': '',
             'message': ''
         })
 
@@ -64,9 +65,9 @@ def login_check(unikey, password):
     elif(user is None and unikey and password):
         errors.append("Login Failed: The user does not exist.")
     user = helperMethods.token_user_info()
-    user['unikey'] = unikey # save user input
     return template("login.tpl", {
         'user': user,
+        'user_input': unikey, # save user input
         'message': errors
     })
 
