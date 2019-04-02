@@ -14,7 +14,7 @@
 
 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" -->
 
 
 <div class="container">
@@ -57,32 +57,39 @@
 
         <div class="mesgs">
           <div class="msg_history">
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-            </div>
 
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-                    products, at a price anyone can afford.</p>
-                  <span class="time_date"> 11:01 AM    |    Today</span></div>
-              </div>
-            </div>
+              % for a in messages:
+                  <!--senders message -->
+                  % if user['id'] == a[0]:
+                  <div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>{{a[1]}}</p>
+                      <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+                  </div>
+
+                  <!--Receipients Message  -->
+                  % elif receiver['id'] == a[0]:
+
+                  <div class="incoming_msg">
+
+                    <!-- <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> -->
+                    <div class="incoming_msg_img"> <div class="circle">{{receiver['first_name'][0]}}</div> </div>
+                    <div class="received_msg">
+                      <div class="received_withd_msg">
+                        <p>{{a[1]}}</p>
+                        <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                    </div>
+                  </div>
+                  %end
+              % end
+
+            <!-- Message received -->
+
+
+            <!--Senders message  -->
+
+
+
           </div>
 
 
@@ -93,7 +100,7 @@
                   <div class="form-group">
                     <div class="form-group">
                         <label for="comment">Message To: {{receiver['first_name']}}  {{receiver['last_name']}}:</label>
-                        <!-- <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea> -->
+                        <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea>
                     </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
