@@ -42,8 +42,8 @@ users = [
 ]
 
 messages = [
-    (1, 2, 'how are you user two?'),
-    (2, 1, 'good gee thanks user one')
+    (2, 3, 'how are you user two?'),
+    (3, 2, 'good gee thanks user one')
 ]
 
 # fake users and messages

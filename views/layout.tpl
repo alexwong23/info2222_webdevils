@@ -96,7 +96,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand hidden" href="/">
               <img class="logo" src="/public/images/devil_icon.png" width="30" height="30" alt="Logo">
               Web<span>Devils</span>
             </a>
@@ -150,5 +150,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
   <!-- main javascript codes -->
+  <script src="/public/js/js-cookie.js" type="text/javascript"></script>
   <script src="/public/js/main.js" type="text/javascript"></script>
 </html>

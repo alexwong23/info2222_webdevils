@@ -6,22 +6,8 @@ enable sessions
  - token validation for every page
  - login check needs to check if user is already logged in comparing to session db
 
-helper method user to dict
- - should not have password field
- - is admin field should be status
-
 download, and serve bootstrap cdn for css and javascript
   - style.css also imports google font
-
-layout page
-  - hide and show logo upon toggle
-  - if user not logged in
-    - show login and sign up buttons
-    - show sign out and profile buttons
-
-user profile page
-  - hide edit profile and change password buttons
-  - show message button
 
 message page
 
@@ -43,10 +29,15 @@ login page
 layout page
 - (extra) javascript side bar active class
 
+admin functionality
+
 hashing password
 
 snake case vs camel case
 single or double quotes
+
+toggle sidebar functionality
+- should remain close after redirecting to other pages
 
 #-----------------------------------------------------------------------------
 # Authentication
