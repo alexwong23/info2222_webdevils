@@ -24,11 +24,17 @@ def message_user(receipient):
     user = helperMethods.token_user_info()
     updatedDict['user'] = user
 
-    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,)).fetchone()
+    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
     con.commit()
     updatedDict['receiver'] = helperMethods.userToDict(cur.fetchone())
     print(updatedDict['receiver'])
     return template('message.tpl',updatedDict)
+
+
+
+# def message_user_send(receipient):
+
+
 
 
 # @messageRouter.route('/<unikey>/<receipient>', method="GET")

@@ -1,6 +1,6 @@
 % rebase('layout.tpl', unikey=user['unikey'])
 %
-<p>To: {{receiver['first_name']}}</p>
+<p class = "message_receiver">To: {{receiver['first_name']}}  {{receiver['last_name']}}</p>
 %
 
 <form method="post" action="/messages/send">
