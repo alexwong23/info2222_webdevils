@@ -36,14 +36,27 @@ con.execute("""CREATE TABLE content (
 con.commit()
 
 users = [
-    ('admin001', 'admin001', 1, 'Admin', 'WebDevils'),
-    ('user1', 'password', 0, 'User', 'One'),
-    ('user2', 'password', 0, 'User', 'Two')
+    ('admin1', 'admin1', 1, 'Admin', 'WebDevils'),
+    ('user2', 'password', 0, 'Alex', 'Wong'),
+    ('user3', 'password', 0, 'Kirath', 'Singh'),
+    ('user4', 'password', 0, 'Tim', 'Tam'),
+    ('user5', 'password', 0, 'Alan', 'Fekete'),
+    ('user6', 'password', 0, 'David', 'Black')
 ]
 
+
+# 1 is admin
+#remaining numbers are users
 messages = [
     (2, 3, 'how are you user two?'),
-    (3, 2, 'good gee thanks user one')
+    (3, 2, 'good gee thanks user one'),
+    (2, 4, 'how are you user four?'),
+    (4, 2, 'Aye man all good'),
+    (2, 4, 'How is your momma doing?'),
+    (4, 2, 'she is doing well mate'),
+    (2, 5, 'how are you user five?'),
+    (2, 5, 'you ther five?'),
+    (5, 2, 'Yes yes i am here')
 ]
 
 # fake users and messages
