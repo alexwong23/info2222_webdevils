@@ -22,13 +22,41 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 #-----------------------------------------------------------------------------
 
 def message_user(receipient):
-    updatedDict = {'user':{}, 'receiver':{}}
+    updatedDict = {'user':{},'receiver':{},'messages':None}
     user = helperMethods.token_user_info()
     updatedDict['user'] = user
 
     cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
     con.commit()
     updatedDict['receiver'] = helperMethods.userToDict(cur.fetchone())
+
+
+
+    # cur.execute('SELECT text FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC',(updatedDict['user']['id'],updatedDict['receiver']['id'],))
+    # con.commit()
+    # allMessages = cur.fetchall()
+
+#     SELECT *
+# FROM (  SELECT SUM(Fdays) AS fDaysSum
+#         FROM tblFieldDays
+#         WHERE tblFieldDays.NameCode=35
+#         AND tblFieldDays.WeekEnding=1) A -- use you real query here
+# CROSS JOIN (SELECT SUM(CHdays) AS hrsSum
+#             FROM tblChargeHours
+#             WHERE tblChargeHours.NameCode=35
+#             AND tblChargeHours.WeekEnding=1) B -- use you real query here
+
+    cur.execute('SELECT * FROM (SELECT sender_id ,text FROM messages WHERE (sender_id = (?) AND receiver_id = (?)) OR (sender_id = (?) AND receiver_id = (?)) ORDER BY date_created ASC)',(updatedDict['user']['id'],updatedDict['receiver']['id'],updatedDict['receiver']['id'],updatedDict['user']['id']))
+    con.commit()
+    allMessages = helperMethods.userToMessageAttacher(cur.fetchall())
+    updatedDict['messages']= allMessages
+
+
+
+    # cur.execute('SELECT text FROM messages WHERE sender_id = (?) AND receiver_id = (?) ORDERBY date_created ASC',(receipient['id'],user['id'],))
+    # con.commit()
+    # sender_messages = cur.fetchone()
+
     return template('message.tpl',updatedDict)
 
 

@@ -24,6 +24,16 @@ def userToDict(tuple):
         }
     return dict
 
+def userToMessageAttacher(tuples):
+    messagesList = []
+
+    for a in tuples:
+        messagesList.append((a[0],a[1]))
+
+    return messagesList
+
+
+
 def formErrors(form, required):
     messages = []
     for field in required:
