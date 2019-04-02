@@ -1,7 +1,5 @@
 % rebase('layout.tpl', unikey=user['unikey'])
 
-<a href="/users/{{unikey}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Back</a>
-
 <h2>Edit Password</h2>
 
 <form method="post" action="/users/changepassword" >
@@ -13,7 +11,8 @@
     <label for="confirm_password">Confirm Password</label>
     <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm password">
   </div>
-  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+  <a href="/users/{{user['unikey']}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Cancel</a>
 </form>
 
 % if error:
