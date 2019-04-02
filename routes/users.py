@@ -41,38 +41,65 @@ def profile_page():
 #-----------------------------------------------------------------------------
 
 def edit_profile_page(unikey):
-    cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
-    user = helperMethods.userToDict(cur.fetchone())
-    info = {'user': user}
-    return template('editprofile.tpl', info)
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        return template('editprofile.tpl', {
+            'user': user
+        })
+    else: # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'message': 'You have to login to view this page.'
+        })
 
 def edit_profile_check(first_name, last_name):
-    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    cur.execute('UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)', (first_name, last_name, req_unikey))
-    con.commit()
-    return redirect(f"/users/{req_unikey}")
-
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        cur.execute('UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)', (first_name, last_name, user['unikey']))
+        con.commit()
+        return redirect(f"/users/{user['unikey']}")
+    else: # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'message': 'You have to login to view this page.'
+        })
 
 #-----------------------------------------------------------------------------
 # Change Password
 #-----------------------------------------------------------------------------
 
 def change_password_page(unikey):
-    info = {
-        'unikey': unikey,
-        'error': ''
-    }
-    return template('changepassword.tpl', info)
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        return template('changepassword.tpl', {
+            'user': user,
+            'error': ''
+        })
+    else: # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'message': 'You have to login to view this page.'
+        })
+
 
 def change_password_check(new_password, confirm_password):
-    req_unikey = request.get_cookie('unikey', secret=COOKIE_SECRET_KEY)
-    if (new_password == confirm_password):
-        cur.execute('UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, req_unikey))
-        con.commit()
-        return redirect(f"/users/{req_unikey}")
-    else:
-        info = {
-            'unikey': req_unikey,
-            'error': 'Passwords does not match. Please re-enter your new password'
-        }
-        return template('changepassword.tpl', info)
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        if (new_password == confirm_password):
+            cur.execute('UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, user['unikey']))
+            con.commit()
+            return redirect(f"/users/{user['unikey']}")
+        else:
+            return template('changepassword.tpl', info = {
+                'user': user,
+                'error': 'Passwords do not match. Please re-enter your new password.'
+            })
+    else: # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'message': 'You have to login to view this page.'
+        })

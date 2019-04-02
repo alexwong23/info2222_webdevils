@@ -1,7 +1,5 @@
 % rebase('layout.tpl', unikey=user['unikey'])
 
-<a href="/users/{{user['unikey']}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Back</a>
-
 <h2>Edit Profile</h2>
 
 <form method="post" action="/users/editprofile" >
@@ -14,4 +12,5 @@
     <input type="text" name="last_name" value="{{user['last_name']}}" class="form-control" id="last_name" placeholder="Last Name">
   </div>
   <button type="submit" class="btn btn-primary">Save Changes</button>
+  <a href="/users/{{user['unikey']}}" class="btn btn-secondary active mr-2" role="button" aria-pressed="true">Back</a>
 </form>
