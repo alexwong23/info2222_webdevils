@@ -1,6 +1,8 @@
 from bottle import template, request, redirect
 import random, helperMethods
 
+from datetime import datetime
+
 '''
     Our Model class
     This should control the actual "logic" of your website
@@ -27,12 +29,26 @@ def message_user(receipient):
     cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
     con.commit()
     updatedDict['receiver'] = helperMethods.userToDict(cur.fetchone())
-    print(updatedDict['receiver'])
     return template('message.tpl',updatedDict)
 
 
 
-# def message_user_send(receipient):
+def message_user_send(receipient,text_Message):
+    user = helperMethods.token_user_info()
+
+    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receipient,))
+    con.commit()
+    receiver = helperMethods.userToDict(cur.fetchone())
+
+
+    cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
+    con.commit()
+
+    stringer = '/messages/'+receiver['unikey']
+    redirect(stringer)
+
+
+
 
 
 

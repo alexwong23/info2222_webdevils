@@ -3,7 +3,8 @@
 <p class = "message_receiver">To: {{receiver['first_name']}}  {{receiver['last_name']}}</p>
 %
 
-<form method="post" action="/messages/send">
+
+<form method="post" action="/messages/{{receiver['unikey']}}/send">
   <div class="form-group">
 
     <div class="form-group">
