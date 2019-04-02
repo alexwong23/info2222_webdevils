@@ -27,7 +27,7 @@ def userToDict(tuple):
 def messages_to_list(user_id, receiver_id):
     # cross join
     messages_tuple = cur.execute("""SELECT * FROM
-        (SELECT sender_id ,text FROM messages
+        (SELECT sender_id ,text, date_created FROM messages
             WHERE (sender_id = (?) AND receiver_id = (?))
             OR (sender_id = (?) AND receiver_id = (?))
             ORDER BY date_created ASC)""",
@@ -35,8 +35,26 @@ def messages_to_list(user_id, receiver_id):
     con.commit()
     messages_list = []
     for a in messages_tuple:
-        messages_list.append((a[0],a[1]))
+        messages_list.append((a[0],a[1],dateSplitter(a[2])))
     return messages_list
+
+def dateSplitter(b):
+    newlist = []
+    list_strings = b.split()
+    date = list_strings[0]
+    time = list_strings[1]
+    newlist.append(date)
+    newlist.append(time)
+    return newlist
+
+
+def usersList(a):
+    newList = []
+    for user in a:
+        newList.append(user)
+
+    return newList
+
 
 def formErrors(form, required):
     messages = []

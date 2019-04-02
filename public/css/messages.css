@@ -5,6 +5,21 @@
     float:left;
 }
 
+
+
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+  line-height: 30px;
+  text-align: center;
+  background: #000
+}
+
+
 .message_container {
   max-width:1170px;
   margin:auto;
@@ -12,6 +27,7 @@
 .message_container img {
   max-width:100%;
 }
+
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;

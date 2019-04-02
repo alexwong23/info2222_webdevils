@@ -80,6 +80,7 @@ def logout_check():
         response.delete_cookie('token')
         return template("login.tpl", {
             'user': helperMethods.token_user_info(),
+            'user_input': '',
             'message': ''
         })
     else:

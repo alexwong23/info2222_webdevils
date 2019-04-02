@@ -21,7 +21,8 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 # Template Message
 #-----------------------------------------------------------------------------
 
-def redirect_messages_page():
+def message_user(receipient):
+    updatedDict = {'user':{},'receiver':{},'messages':None,'othersReceivers':{}}
     user = helperMethods.token_user_info()
 
     # SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
@@ -60,11 +61,12 @@ def message_user_send(receipient,text_Message):
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
 
-    cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
-    con.commit()
-
-    stringer = '/messages/'+receiver['unikey']
-    redirect(stringer)
+    if text_Message is "":
+        redirect('/messages/'+receiver['unikey'])
+    else:
+        cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
+        con.commit()
+        redirect('/messages/'+receiver['unikey'])
 
 
 
