@@ -31,6 +31,19 @@ def serve_css(file):
 def get_index():
     return index.index_page()
 
+@get('/signup')
+def get_signup():
+    return index.signup_page()
+
+@post('/signup')
+def post_signup():
+    signup_unikey = request.forms.get('signup_unikey')
+    signup_first_name = request.forms.get('signup_first_name')
+    signup_last_name = request.forms.get('signup_last_name')
+    signup_password = request.forms.get('signup_password')
+    signup_confirm_password = request.forms.get('signup_confirm_password')
+    return index.signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password)
+
 @get('/login')
 def get_login_controller():
     return index.login_page()
