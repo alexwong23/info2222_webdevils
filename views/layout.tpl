@@ -6,13 +6,11 @@
     <link rel="shortcut icon" href="/public/images/devil_icon.png"/>
     <title>WebDevils</title>
 
-    <!-- main css codes -->
-    <link rel="stylesheet" text="text/css" href="/public/css/style.css">
-    <css src="/public/css/style.css">
+    <!-- font awesome -->
+    <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
     <!-- bootstrap CSS -->
-    <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --> -->
 
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" text="text/css" href="/public/css/scrollbar-custom.min.css">
@@ -33,6 +31,9 @@
     <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script> -->
 
+    <!-- main css codes -->
+    <link rel="stylesheet" text="text/css" href="/public/css/style.css">
+    <css src="/public/css/style.css">
   </head>
   <body>
     <!--This section is what is in the toggle menu   -->
