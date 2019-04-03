@@ -15,5 +15,3 @@
 % for errors in error_message:
   <p>{{errors}}</p>
 % end
-
-<p>{{message}}</p>

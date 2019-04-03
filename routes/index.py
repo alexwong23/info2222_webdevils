@@ -36,15 +36,13 @@ def login_page():
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'error_message':"",
-            'message': 'You are already logged in.'
+            'error_message': 'You are already logged in.'
         })
     else:
         return template("login.tpl", {
             'user': user,
             'user_input': '',
-            'error_message':"",
-            'message': ''
+            'error_message': ''
         })
 
 # Check the login credentials
@@ -75,7 +73,7 @@ def login_check(unikey, password):
     return template("login.tpl", {
         'user': user,
         'user_input': unikey, # save user input
-        'message': errors
+        'error_message': errors
     })
 
 def logout_check():
@@ -86,9 +84,9 @@ def logout_check():
         con.commit()
         response.delete_cookie('token')
         return template("login.tpl", {
-            'user': helperMethods.token_user_info(),
+            'user': user,
             'user_input': '',
-            'message': ''
+            'error_message': ''
         })
     else:
         return template('error.tpl', {
@@ -102,8 +100,18 @@ def logout_check():
 #-----------------------------------------------------------------------------
 def signup_page():
     user = helperMethods.token_user_info()
-    return template('signup.tpl', {
-        'user': user})
+    if(user['unikey'] != ''):
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'message': 'You are already logged in.'
+        })
+    else:
+        return template('signup.tpl', {
+                'user': user,
+                'error': ''
+            })
+
 
 def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password):
     errors = helperMethods.formErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
@@ -111,11 +119,17 @@ def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_pass
     con.commit()
     user = helperMethods.userToDict(user_tuple)
     if user['unikey'] == signup_unikey:
+        user = {
+            'id': '',
+            'unikey': '',
+            'first_name': '',
+            'last_name': '',
+            'status': ''
+        } # remove the user to correct layout navbar
         return template("login.tpl", {
             'user': user,
             'user_input': signup_unikey, # save user input
-            'error_message': "",
-            'message': 'Account already exists, Please Sign In'
+            'error_message': ['Account already exists, Please Sign In'],
         })
     else:
         if (signup_password == signup_confirm_password):
@@ -124,13 +138,13 @@ def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_pass
             return template("login.tpl", {
                 'user': user,
                 'user_input': signup_unikey, # save user input
-                'error_message': errors,
-                'message':"Sign up successful, Please log in"
+                'error_message': ['Sign up successful, Please log in']
             })
         else:
+            errors.append('Passwords do not match. Please re-enter your new password.')
             return template('signup.tpl', {
                 'user': helperMethods.token_user_info(),
-                'error': 'Passwords do not match. Please re-enter your new password.'
+                'error': errors
             })
 
 
