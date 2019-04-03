@@ -24,6 +24,14 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 def all_messages_page():
     # incomplete
     user = helperMethods.token_user_info()
+    #earliest sender would be seen first
+    cur.execute('SELECT id FROM users INNER JOIN messages WHERE unikey=(?) ORDER BY date_created DESC',(user['uniKey'],))
+    con.commit()
+    #contains the list of all the senders id
+    all_receivers = helperMethods.usersList(cur.fetchall())
+
+    #
+
     redirect('/messages/' + user['unikey'])
 
 def messages_page(receiver):
@@ -49,6 +57,7 @@ def messages_check(receiver,text_Message):
     cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receiver,))
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
+
     if text_Message is "":
         redirect('/messages/'+receiver['unikey'])
     else:

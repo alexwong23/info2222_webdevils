@@ -53,6 +53,8 @@ def usersList(a):
         newList.append(user)
     return newList
 
+
+
 def formErrors(form, required):
     messages = []
     for field in required:
