@@ -1,4 +1,5 @@
 from bottle import template, request, redirect, response
+from datetime import datetime
 
 import string, random, helperMethods
 '''
@@ -93,6 +94,43 @@ def logout_check():
             'title': 'Logout Error:',
             'message': 'You are not logged in.'
         })
+
+#-----------------------------------------------------------------------------
+#Sign up
+#-----------------------------------------------------------------------------
+def signup_page():
+    user = helperMethods.token_user_info()
+    return template('signup.tpl', {
+        'user': user})
+
+def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password):
+    errors = helperMethods.formErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
+    user_tuple = cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (signup_unikey,)).fetchone()
+    con.commit()
+    user = helperMethods.userToDict(user_tuple)
+    if user['unikey'] == signup_unikey:
+        return template("login.tpl", {
+            'user': user,
+            'user_input': signup_unikey, # save user input
+            'error_message': "",
+            'message': 'Account already exists, Please Sign In'
+        })
+    else:
+        if (signup_password == signup_confirm_password):
+            cur.execute('INSERT INTO users (unikey, password, status, first_name, last_name, date_created) VALUES (?,?,?,?,?,(datetime("now", "localtime")))',(signup_unikey, signup_password, 0, signup_first_name, signup_last_name))
+            con.commit()
+            return template("login.tpl", {
+                'user': user,
+                'user_input': signup_unikey, # save user input
+                'error_message': errors,
+                'message':"Sign up successful, Please log in"
+            })
+        else:
+            return template('signup.tpl', {
+                'user': helperMethods.token_user_info(),
+                'error': 'Passwords do not match. Please re-enter your new password.'
+            })
+
 
 #-----------------------------------------------------------------------------
 # About Us & Contact Us

@@ -69,6 +69,6 @@ def token_user_info():
     cur.execute("""
         SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
         FROM user_sessions JOIN users ON user_sessions.user_id = users.id WHERE token=(?)""", (token,))
-    user = userToDict(cur.fetchone())
     con.commit()
+    user = userToDict(cur.fetchone())
     return user
