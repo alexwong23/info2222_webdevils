@@ -24,7 +24,25 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 def all_messages_page():
     # incomplete
     user = helperMethods.token_user_info()
-    redirect('/messages/' + user['unikey'])
+    #earliest sender would be seen first
+    cur.execute('SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey=(?) ORDER BY messages.date_created DESC',('uniKey',))
+    con.commit()
+    #contains the list of all the senders id
+    all_receivers = helperMethods.usersList(cur.fetchall())
+
+    all_receivers.append('kirath Singh')
+    all_receivers.append('hello world')
+
+
+    # #Now map the sender_id to their first last_name
+    # cur.execute('SELECT first_name,last_name FROM users WEHRE id = ?',(all_receivers))
+    # con.commit()
+    # all_sender_id  = helperMethods.usersList(cur.fetchall())
+
+
+    return template('message2.tpl',{'user':user,'messages':"", 'sender_names':all_receivers,'receiver':""})
+    # cannot redirect as we need to
+    # redirect('/messages/' + user['unikey'])
 
 def messages_page(receiver):
     user = helperMethods.token_user_info()
@@ -49,10 +67,11 @@ def messages_check(receiver,text_Message):
     cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receiver,))
     con.commit()
     receiver = helperMethods.userToDict(cur.fetchone())
+
     if text_Message is "":
         redirect('/messages/'+receiver['unikey'])
     else:
-        cur.execute('INSERT INTO messages (date_created,text,sender_id,receiver_id) VALUES (datetime("now", "localtime"),?,?,?)',(text_Message,user['id'],receiver['id']))
+        cur.execute('INSERT INTO messages (date_created, text, sender_id,receiver_id, receiver_first_name, receiver_last_name) VALUES (datetime("now", "localtime"),?,?,?,?,?)',(text_Message,user['id'],receiver['id'],receiver['first_name'],receiver['last_name']))
         con.commit()
         redirect('/messages/'+receiver['unikey'])
 

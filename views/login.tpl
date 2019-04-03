@@ -12,6 +12,8 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-% for errors in message:
+% for errors in error_message:
   <p>{{errors}}</p>
 % end
+
+<p>{{message}}</p>

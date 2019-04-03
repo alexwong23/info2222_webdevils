@@ -18,6 +18,8 @@ con.execute("""CREATE TABLE messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         date_created datetime NOT NULL, text char(100),
         sender_id INTEGER, receiver_id INTEGER,
+        receiver_first_name char(50) NOT NULL,
+        receiver_last_name char(50) NOT NULL,
         FOREIGN KEY(sender_id) REFERENCES users(id),
         FOREIGN KEY(receiver_id) REFERENCES users(id))""")
 con.commit()

@@ -53,6 +53,15 @@ def usersList(a):
         newList.append(user)
     return newList
 
+
+def senderString(a):
+    stringer = ""
+    for user in a:
+        stringger += stringger+' user_id = ' + user
+
+    return stringer
+
+
 def formErrors(form, required):
     messages = []
     for field in required:
@@ -67,6 +76,6 @@ def token_user_info():
     cur.execute("""
         SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
         FROM user_sessions JOIN users ON user_sessions.user_id = users.id WHERE token=(?)""", (token,))
-    user = userToDict(cur.fetchone())
     con.commit()
+    user = userToDict(cur.fetchone())
     return user
