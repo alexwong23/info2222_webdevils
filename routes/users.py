@@ -26,9 +26,7 @@ def redirect_profile_page():
 def profile_page(unikey):
     user = helperMethods.token_user_info()
     if(user['unikey'] != ""):
-        user_tuple = cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,)).fetchone()
-        con.commit()
-        any_user = helperMethods.userToDict(user_tuple)
+        any_user = helperMethods.get_user_details(unikey)
         return template('userProfile.tpl', {
             'user': user,
             'any_user': any_user

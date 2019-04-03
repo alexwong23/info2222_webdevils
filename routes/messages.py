@@ -46,9 +46,7 @@ def all_messages_page():
 
 def messages_page(receiver):
     user = helperMethods.token_user_info()
-    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receiver,))
-    con.commit()
-    receiver = helperMethods.userToDict(cur.fetchone())
+    receiver = helperMethods.get_user_details(receiver)
     messages = helperMethods.messages_to_list(user['id'], receiver['id'])
     return template('message.tpl', {
             'user': user,
@@ -64,9 +62,7 @@ def messages_check(receiver,text_Message):
             'title': 'Error: Account Muted',
             'message': 'Your account is not allowed to message users. Please contact the administrator for further inquiries.'
         })
-    cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)',(receiver,))
-    con.commit()
-    receiver = helperMethods.userToDict(cur.fetchone())
+    receiver = helperMethods.get_user_details(receiver)
 
     if text_Message is "":
         redirect('/messages/'+receiver['unikey'])
@@ -89,8 +85,7 @@ def messages_check(receiver,text_Message):
 # @messageRouter.route('/send', method="POST")
 # def messageSend():
 #     message = request.forms.get('textSend')
-#     cur.execute('SELECT unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,))
-#     user = helperMethods.userToDict(cur.fetchone())
+#     user = helperMethods.get_user_details(unikey)
 #     if(user is not None and unikey and password):
 #         if(user['unikey'] == unikey and user['password'] == password):
 #             response.set_cookie('unikey', user['unikey'], secret=COOKIE_SECRET_KEY)

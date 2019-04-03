@@ -48,11 +48,11 @@ def login_page():
 # Check the login credentials
 def login_check(unikey, password):
     errors = helperMethods.formErrors(request.forms, ['unikey', 'password'])
-    user_tuple = cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,)).fetchone()
+    user = helperMethods.get_user_details(unikey)
+    user_password = cur.execute('SELECT password FROM users WHERE unikey=(?)', (unikey,)).fetchone()[0]
     con.commit()
-    user = helperMethods.userToDict(user_tuple)
     if(user is not None and unikey and password):
-        if(user['unikey'] == unikey and user_tuple[2] == password):
+        if(user['unikey'] == unikey and user_password == password):
             if(user['status'] == 3):
                 return template('error.tpl', {
                     'user': helperMethods.token_user_info(),
@@ -84,7 +84,7 @@ def logout_check():
         con.commit()
         response.delete_cookie('token')
         return template("login.tpl", {
-            'user': user,
+            'user': helperMethods.empty_user_details(), # remove the user to correct layout navbar,
             'user_input': '',
             'error_message': ''
         })
@@ -109,23 +109,15 @@ def signup_page():
     else:
         return template('signup.tpl', {
                 'user': user,
-                'error': ''
+                'error_message': ''
             })
 
 
 def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password):
     errors = helperMethods.formErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
-    user_tuple = cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (signup_unikey,)).fetchone()
-    con.commit()
-    user = helperMethods.userToDict(user_tuple)
+    user = helperMethods.get_user_details(signup_unikey)
     if user['unikey'] == signup_unikey:
-        user = {
-            'id': '',
-            'unikey': '',
-            'first_name': '',
-            'last_name': '',
-            'status': ''
-        } # remove the user to correct layout navbar
+        user = helperMethods.empty_user_details() # remove the user to correct layout navbar
         return template("login.tpl", {
             'user': user,
             'user_input': signup_unikey, # save user input
@@ -144,7 +136,7 @@ def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_pass
             errors.append('Passwords do not match. Please re-enter your new password.')
             return template('signup.tpl', {
                 'user': helperMethods.token_user_info(),
-                'error': errors
+                'error_message': errors
             })
 
 

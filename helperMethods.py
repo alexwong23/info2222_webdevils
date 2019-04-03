@@ -5,15 +5,19 @@ con = sqlite3.connect('./db/webdevils.db')
 cur = con.cursor()
 COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 
-def userToDict(tuple):
+
+def empty_user_details():
+    return {
+        'id': '',
+        'unikey': '',
+        'first_name': '',
+        'last_name': '',
+        'status': ''
+    }
+
+def user_to_dict(tuple):
     if(tuple is None):
-        dict = {
-            'id': '',
-            'unikey': '',
-            'first_name': '',
-            'last_name': '',
-            'status': ''
-        }
+        dict = empty_user_details()
     else:
         dict = {
             'id': tuple[0],
@@ -23,6 +27,11 @@ def userToDict(tuple):
             'status': tuple[5]
         }
     return dict
+
+def get_user_details(unikey):
+    tuple = cur.execute('SELECT id, unikey, password, first_name, last_name, status FROM users WHERE unikey=(?)', (unikey,)).fetchone()
+    con.commit()
+    return user_to_dict(tuple)
 
 def messages_to_list(user_id, receiver_id):
     # cross join
@@ -77,5 +86,5 @@ def token_user_info():
         SELECT users.id, users.unikey, users.password, users.first_name, users.last_name, users.status
         FROM user_sessions JOIN users ON user_sessions.user_id = users.id WHERE token=(?)""", (token,))
     con.commit()
-    user = userToDict(cur.fetchone())
+    user = user_to_dict(cur.fetchone())
     return user

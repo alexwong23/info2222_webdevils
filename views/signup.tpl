@@ -14,7 +14,9 @@
           <input name="signup_last_name" type="text" placeholder="Last name" class="input pass"/>
           <input name="signup_password" type="password" placeholder="Choose a password" required="required" class="input pass"/>
           <input name="signup_confirm_password" type="password" placeholder="Confirm password" required="required" class="input pass"/>
-          <p>{{error}}</p>
+          % for error in error_message:
+            <p>{{error}}</p>
+          % end
           <input type="submit" value="Sign me up!" class="inputButton"/>
         </form>
       </div>
