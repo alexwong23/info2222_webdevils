@@ -3,9 +3,7 @@
 
   % rebase('layout.tpl', status=user['status'])
 
-
   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" -->
-
 
   <div class="message_container">
     <h3 class=" text-center">Messaging</h3>
