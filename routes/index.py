@@ -36,12 +36,14 @@ def login_page():
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
+            'error_message':"",
             'message': 'You are already logged in.'
         })
     else:
         return template("login.tpl", {
             'user': user,
             'user_input': '',
+            'error_message':"",
             'message': ''
         })
 

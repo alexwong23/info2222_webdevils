@@ -95,7 +95,7 @@ def change_password_check(new_password, confirm_password):
         if (new_password == confirm_password):
             cur.execute('UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, user['unikey']))
             con.commit()
-            return redirect(f"/users/{user['unikey']}")
+            return redirect("/users/{user['unikey']}")
         else:
             return template('changepassword.tpl', info = {
                 'user': user,

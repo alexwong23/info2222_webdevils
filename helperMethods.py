@@ -54,6 +54,13 @@ def usersList(a):
     return newList
 
 
+def senderString(a):
+    stringer = ""
+    for user in a:
+        stringger += stringger+' user_id = ' + user
+
+    return stringer
+
 
 def formErrors(form, required):
     messages = []
