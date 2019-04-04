@@ -60,7 +60,7 @@ def messages_check(receiver,text_Message):
         return template('error.tpl', {
             'user': helperMethods.token_user_info(),
             'title': 'Error: Account Muted',
-            'message': 'Your account is not allowed to message users. Please contact the administrator for further inquiries.'
+            'error_message': 'Your account is not allowed to message users. Please contact the administrator for further inquiries.'
         })
     receiver = helperMethods.get_user_details(receiver)
 
@@ -96,6 +96,6 @@ def messages_check(receiver,text_Message):
 #         errors.append("Login Failed: The user does not exist.")
 #     info = {
 #         'user': {'unikey': unikey},
-#         'message': errors
+#         'error_message': errors
 #     }
 #     return template('login.tpl', info)

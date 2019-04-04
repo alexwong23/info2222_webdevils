@@ -57,7 +57,7 @@ def login_check(unikey, password):
                 return template('error.tpl', {
                     'user': helperMethods.token_user_info(),
                     'title': 'Error: Account Banned',
-                    'message': 'Your account has been banned. Please contact the administrator for further inquiries.'
+                    'error_message': 'Your account has been banned. Please contact the administrator for further inquiries.'
                 })
             else:
                 token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
@@ -92,7 +92,7 @@ def logout_check():
         return template('error.tpl', {
             'user': user,
             'title': 'Logout Error:',
-            'message': 'You are not logged in.'
+            'error_message': 'You are not logged in.'
         })
 
 #-----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ def signup_page():
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'You are already logged in.'
+            'error_message': 'You are already logged in.'
         })
     else:
         return template('signup.tpl', {
@@ -162,5 +162,5 @@ def error_page(url):
     return template("error.tpl", {
         'user': helperMethods.token_user_info(),
         'title': 'Error: 404 Not Found',
-        'message': 'We could not find the requested URL: ' + url
+        'error_message': 'We could not find the requested URL: ' + url
     })

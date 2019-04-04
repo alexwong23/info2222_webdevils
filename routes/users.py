@@ -35,7 +35,7 @@ def profile_page(unikey):
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'You have to login to view this page.'
+            'error_message': 'You have to login to view this page.'
         })
 
 #-----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ def edit_profile_page(unikey):
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'You have to login to view this page.'
+            'error_message': 'You have to login to view this page.'
         })
 
 def edit_profile_check(first_name, last_name):
@@ -65,7 +65,7 @@ def edit_profile_check(first_name, last_name):
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'You have to login to view this page.'
+            'error_message': 'You have to login to view this page.'
         })
 
 #-----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ def change_password_page(unikey):
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'You have to login to view this page.'
+            'error_message': 'You have to login to view this page.'
         })
 
 
@@ -103,5 +103,5 @@ def change_password_check(new_password, confirm_password):
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'You have to login to view this page.'
+            'error_message': 'You have to login to view this page.'
         })

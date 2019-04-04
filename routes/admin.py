@@ -29,5 +29,5 @@ def admin_page():
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
-            'message': 'Only the administrator can view this page.'
+            'error_message': 'Only the administrator can view this page.'
         })
