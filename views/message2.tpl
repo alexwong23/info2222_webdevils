@@ -32,16 +32,18 @@
             <div class="inbox_chat">
               <!-- %for a in othersReceivers: -->
               % for user in sender_names:
+              <a href="/messages/{{user}}">
               <div class="chat_list active_chat">
+
                     <div class="chat_people">
                         <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""></div>
                             <div class="chat_ib">
-                                <h5> {{user}}<span class="chat_date">Dec 25</span></h5>
+                                <h5>{{user}}<span class="chat_date">Dec 25</span></h5>
                             </div>
                      </div>
                 </div>
+            </a>
                 % end
-
               </div>
             </div>
 

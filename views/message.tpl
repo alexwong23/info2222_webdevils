@@ -31,8 +31,7 @@
               <!-- %for a in othersReceivers: -->
               <div class="chat_list active_chat">
 
-                <!-- <p>{{sender_names}}</p> -->
-                <!-- % for user in sender_names: -->
+                
                     <div class="chat_people">
                       <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""> </div>
                       <div class="chat_ib">

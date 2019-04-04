@@ -106,6 +106,8 @@ def post_edit_profile():
 def get_all_messages():
     return messages.all_messages_page()
 
+
+
 @get('/messages/<receiver>')
 def get_receiver_messages(receiver):
     return messages.messages_page(receiver)

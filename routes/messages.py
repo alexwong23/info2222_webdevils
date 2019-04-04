@@ -30,8 +30,8 @@ def all_messages_page():
     #contains the list of all the senders id
     all_receivers = helperMethods.usersList(cur.fetchall())
 
-    all_receivers.append('kirath Singh')
-    all_receivers.append('hello world')
+    all_receivers.append('user4')
+    all_receivers.append('user2')
 
 
     # #Now map the sender_id to their first last_name
