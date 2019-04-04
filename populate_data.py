@@ -16,10 +16,13 @@ con.execute("""CREATE TABLE user_sessions (
 con.commit()
 con.execute("""CREATE TABLE messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date_created datetime NOT NULL, text char(100),
-        sender_id INTEGER, receiver_id INTEGER,
-        receiver_first_name char(50) NOT NULL,
-        receiver_last_name char(50) NOT NULL,
+        date_created datetime NOT NULL,
+        text char(100),
+        sender_id INTEGER,
+        receiver_id INTEGER,
+        receiver_unikey char(8) ,
+        receiver_first_name char(50) ,
+        receiver_last_name char(50) ,
         FOREIGN KEY(sender_id) REFERENCES users(id),
         FOREIGN KEY(receiver_id) REFERENCES users(id))""")
 con.commit()
@@ -52,21 +55,21 @@ users = [
 # 1 is admin
 #remaining numbers are users
 messages = [
-    (2, 3, 'how are you user two?'),
-    (3, 2, 'good gee thanks user one'),
-    (2, 4, 'how are you user four?'),
-    (4, 2, 'Aye man all good'),
-    (2, 4, 'How is your momma doing?'),
-    (4, 2, 'she is doing well mate'),
-    (2, 5, 'how are you user five?'),
-    (2, 5, 'you ther five?'),
-    (5, 2, 'Yes yes i am here')
+    (2, 3, 'how are you user two?','user3','kirath','Singh'),
+    (3, 2, 'good gee thanks user one','user2','Alex', 'Wong'),
+    (2, 4, 'how are you user four?','user4','Tim', 'Tam'),
+    (4, 2, 'Aye man all good','user2','Alex', 'Wong'),
+    (2, 4, 'How is your momma doing?','user4','Tim', 'Tam'),
+    (4, 2, 'she is doing well mate','user2','Alex', 'Wong'),
+    (2, 5, 'how are you user five?','user5','Alan', 'Fekete'),
+    (2, 5, 'you ther five?','user5','Alan', 'Fekete'),
+    (5, 2, 'Yes yes i am here','user2','Alex', 'Wong')
 ]
 
 # fake users and messages
 con.executemany("INSERT INTO users (unikey, password, status, first_name, last_name, date_created) VALUES (?, ?, ?, ?, ?, datetime('now', 'localtime'))", users)
 con.commit()
-con.executemany("INSERT INTO messages (sender_id, receiver_id, text, date_created) VALUES (?, ?, ?, datetime('now', 'localtime'))", messages)
+con.executemany("INSERT INTO messages (sender_id, receiver_id, text, receiver_unikey, receiver_first_name, receiver_last_name, date_created) VALUES (?, ?, ?, ?, ?, ?, datetime('now', 'localtime'))", messages)
 con.commit()
 # populate html and css content
 con.execute("INSERT INTO category_types (name) VALUES ('HTML')")
