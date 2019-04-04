@@ -9,18 +9,15 @@
     <!-- font awesome -->
     <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
-    <!-- bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --> -->
-
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" text="text/css" href="/public/css/scrollbar-custom.min.css">
     <css src="/public/css/scrollbar-custom.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
 
-    <!-- collapsable Toggle CSS  -->
-    <link rel="stylesheet" text="text/css" href="/public/css/collapsable-toggle.min.css">
-    <css src="/public/css/collapsable-toggle.min.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
+    <!-- bootstrap CSS for collapsable Toggle CSS too-->
+    <link rel="stylesheet" text="text/css" href="/public/css/bootstrap.min.css">
+    <css src="/public/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
     <!--Icons  -->
     <link rel="stylesheet" text="text/css" href="/public/css/icons.min.css">

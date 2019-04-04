@@ -4,7 +4,7 @@
 % rebase('layout.tpl', status=user['status'])
 
 <div>
-  <div class="container" >
+  <div class="signupcontainer">
     <div class="col-md-6" >
       <div id="logbox"  >
         <form id="signup" method="post" action="/signup" >
