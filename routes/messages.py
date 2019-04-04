@@ -30,16 +30,6 @@ def all_messages_page():
     #contains the list of all the senders id
     all_receivers = helperMethods.usersList(cur.fetchall())
 
-    # all_receivers.append('user4')
-    # all_receivers.append('user2')
-
-
-    # #Now map the sender_id to their first last_name
-    # cur.execute('SELECT first_name,last_name FROM users WEHRE id = ?',(all_receivers))
-    # con.commit()
-    # all_sender_id  = helperMethods.usersList(cur.fetchall())
-
-
     return template('message2.tpl',{'user':user,'messages':"", 'sender_names':all_receivers,'receiver':""})
     # cannot redirect as we need to
     # redirect('/messages/' + user['unikey'])
@@ -48,10 +38,17 @@ def messages_page(receiver):
     user = helperMethods.token_user_info()
     receiver = helperMethods.get_user_details(receiver)
     messages = helperMethods.messages_to_list(user['id'], receiver['id'])
+
+    cur.execute("""SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name, messages.receiver_unikey FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey= (?) ORDER BY messages.date_created DESC""",(user['unikey'],))
+    con.commit()
+    #contains the list of all the senders id
+    all_receivers = helperMethods.usersList(cur.fetchall())
+
     return template('message.tpl', {
             'user': user,
             'receiver': receiver,
-            'messages': messages
+            'messages': messages,
+            'sender_names':all_receivers
         })
 
 def messages_check(receiver,text_Message):

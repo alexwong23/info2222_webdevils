@@ -14,7 +14,7 @@
           <div class="headind_srch">
 
             <div class="recent_heading">
-              <h4>Recent</h4>
+              <h4>Recent Chats</h4>
             </div>
 
             <div class="srch_bar">
@@ -29,20 +29,22 @@
             <!--Messages chat box  -->
             <div class="inbox_chat">
               <!-- %for a in othersReceivers: -->
-              <div class="chat_list active_chat">
-
-                
-                    <div class="chat_people">
-                      <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""> </div>
-                      <div class="chat_ib">
-                        <h5> user<span class="chat_date">Dec 25</span></h5>
-                        <p>Test, which is a new approach to have all solutions
-                          astrology under one roof.</p>
-                        </div>
-                      </div>
-                <!-- % end -->
+              <!--Messages chat box  -->
+              <div class="inbox_chat">
+                <!-- %for a in othersReceivers: -->
+                % for a in sender_names:
+                <a href="/messages/{{a[2]}}">
+                <div class="chat_list active_chat">
+                      <div class="chat_people">
+                          <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""></div>
+                              <div class="chat_ib">
+                                  <h5>{{a[0]}} {{a[1]}}<span class="chat_date">Dec 25</span></h5>
+                              </div>
+                       </div>
+                  </div>
+                </a>
+                  % end
                 </div>
-
               </div>
             </div>
 
