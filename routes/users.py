@@ -105,3 +105,37 @@ def change_password_check(new_password, confirm_password):
             'title': 'Error: Unable to access page',
             'error_message': 'You have to login to view this page.'
         })
+
+#-----------------------------------------------------------------------------
+# Search Messages
+#-----------------------------------------------------------------------------
+
+def search_users(query):
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        if(query is None or query == ""): # prevents error in front end
+            return template('search_users', {
+                'user': user,
+                'query': query,
+                'results': []
+            })
+        else:
+            tuples = cur.execute("""
+                SELECT id, unikey, password, first_name, last_name, status
+                FROM users WHERE unikey LIKE ? OR first_name LIKE ? OR last_name LIKE ?
+                """, ('%' + query + '%', '%' + query + '%', '%' + query + '%')).fetchall()
+            con.commit()
+            results = []
+            for tuple in tuples:
+                results.append(helperMethods.user_to_dict(tuple))
+            return template('search_users', {
+                'user': user,
+                'query': query,
+                'results': results
+            })
+    else: # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'error_message': 'You have to login to search for user details.'
+        })

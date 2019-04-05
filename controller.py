@@ -75,6 +75,11 @@ def get_contact():
 def redirect_profile():
     return users.redirect_profile_page()
 
+@get('/users/search')
+def get_search_users():
+    query = request.query.query
+    return users.search_users(query)
+
 @get('/users/<unikey>')
 def get_profile(unikey):
     return users.profile_page(unikey)
@@ -116,6 +121,10 @@ def get_content(section,page1):
 def get_all_messages():
     return messages.all_messages_page()
 
+@get('/messages/search')
+def get_messages_search_users():
+    query = request.query.query
+    return messages.search_users(query)
 
 @get('/messages/<receiver>')
 def get_receiver_messages(receiver):
