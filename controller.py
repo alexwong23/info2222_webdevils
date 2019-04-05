@@ -4,6 +4,7 @@ import routes.index as index
 import routes.users as users
 import routes.messages as messages
 import routes.admin as admin
+import routes.content as content
 
 from bottle import response #do we need this?
 
@@ -102,6 +103,15 @@ def post_edit_profile():
     new_password = request.forms.get('new_password')
     confirm_password = request.forms.get('confirm_password')
     return users.change_password_check(new_password, confirm_password)
+
+#-----------------------------------------------------------------------------
+# Content
+#-----------------------------------------------------------------------------
+@get('/content/<section>/<page1>')
+def get_content(section,page1):
+    return content.show_content(section,page1)
+
+
 
 #-----------------------------------------------------------------------------
 # Messages

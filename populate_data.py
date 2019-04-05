@@ -174,7 +174,7 @@ con.commit()
 # merge into one table
 con.execute("""CREATE TABLE all_content AS
         SELECT content.title, content.description,
-        categories.name, category_types.name
+        categories.name , category_types.name AS category_type
         FROM content
         INNER JOIN categories ON content.category_id = categories.id
         INNER JOIN category_types ON categories.type_id = category_types.id """)
