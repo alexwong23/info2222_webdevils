@@ -14,28 +14,13 @@
             <div class="recent_heading">
               <h4>Recent Chats</h4>
             </div>
+            <hr>
             <div class="srch_bar">
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Search User
-              </button>
-            </div>
-          </div>
-
-          <!-- The Modal -->
-          <div class="modal fade" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Modal Heading</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                  Modal body..
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+              <div class="stylish-input-group" id="messages_search_users" class="form-group">
+                <input value="" name="search" type="text" placeholder="Search...">
+                <span class="input-group-addon">
+                  <button class="btn btn-primary" type="button">Search</button>
+                </span>
               </div>
             </div>
           </div>
@@ -47,7 +32,7 @@
             <a href="/messages/{{a[2]}}">
               <div class="chat_list active_chat">
                 <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""></div>
+                  <div class="chat_img"><div class="circle">{{a[0][0]}}</div></div>
                   <div class="chat_ib">
                     <h5>{{a[0]}} {{a[1]}}<span class="chat_date">Dec 25</span></h5>
                   </div>

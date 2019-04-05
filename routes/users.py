@@ -107,7 +107,7 @@ def change_password_check(new_password, confirm_password):
         })
 
 #-----------------------------------------------------------------------------
-# Search Users
+# Search Messages
 #-----------------------------------------------------------------------------
 
 def search_users(query):

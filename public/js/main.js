@@ -26,4 +26,11 @@ $(document).ready(function () {
       window.location.replace('/users/search?query=' + query)
     }
   })
+
+  $('#messages_search_users button').on('click', function () {
+    var query = $('#messages_search_users>input').val()
+    if(query != "") {
+      window.location.replace('/messages/search?query=' + query)
+    }
+  })
 })

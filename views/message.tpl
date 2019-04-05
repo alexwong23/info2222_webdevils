@@ -15,38 +15,35 @@
           <div class="recent_heading">
             <h4>Recent Chats</h4>
           </div>
-
+          <hr>
           <div class="srch_bar">
-            <div class="stylish-input-group">
-              <input type="text" class="search-bar"  placeholder="Search" >
+            <div class="stylish-input-group" id="messages_search_users" class="form-group">
+              <input value="" name="search" type="text" placeholder="Search...">
               <span class="input-group-addon">
-                <button type="button">Search</button>
+                <button class="btn btn-primary" type="button">Search</button>
               </span>
             </div>
           </div>
         </div>
 
-          <!--Messages chat box  -->
-          <div class="inbox_chat">
-            <!-- %for a in othersReceivers: -->
-            <!--Messages chat box  -->
-            <div class="inbox_chat">
-              <!-- %for a in othersReceivers: -->
-              % for a in sender_names:
-              <a href="/messages/{{a[2]}}">
-                <div class="chat_list active_chat">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""></div>
-                    <div class="chat_ib">
-                      <h5>{{a[0]}} {{a[1]}}<span class="chat_date">Dec 25</span></h5>
-                    </div>
-                  </div>
+        <!-- %for a in othersReceivers: -->
+        <!--Messages chat box  -->
+        <div class="inbox_chat">
+          <!-- %for a in othersReceivers: -->
+          % for a in sender_names:
+          <a href="/messages/{{a[2]}}">
+            <div class="chat_list active_chat">
+              <div class="chat_people">
+                <div class="chat_img"><div class="circle">{{a[0][0]}}</div></div>
+                <div class="chat_ib">
+                  <h5>{{a[0]}} {{a[1]}}<span class="chat_date">Dec 25</span></h5>
                 </div>
-              </a>
-              % end
+              </div>
             </div>
-          </div>
+          </a>
+          % end
         </div>
+      </div>
 
         <div class="mesgs">
           <div class="msg_history">

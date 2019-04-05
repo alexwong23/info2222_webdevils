@@ -22,7 +22,6 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 #-----------------------------------------------------------------------------
 
 def all_messages_page():
-    # incomplete
     user = helperMethods.token_user_info()
     #earliest sender would be seen first
     cur.execute("""SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name, messages.receiver_unikey FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey= (?) ORDER BY messages.date_created DESC""",(user['unikey'],))
@@ -30,7 +29,12 @@ def all_messages_page():
     #contains the list of all the senders id
     all_receivers = helperMethods.usersList(cur.fetchall())
 
-    return template('message2.tpl',{'user':user,'messages':"", 'sender_names':all_receivers,'receiver':""})
+    return template('message2.tpl',{
+            'user': user,
+            'messages': "",
+            'sender_names': all_receivers,
+            'receiver': ""
+        })
     # cannot redirect as we need to
     # redirect('/messages/' + user['unikey'])
 
@@ -68,31 +72,34 @@ def messages_check(receiver,text_Message):
         con.commit()
         redirect('/messages/'+receiver['unikey'])
 
+#-----------------------------------------------------------------------------
+# Search Users in Messages
+#-----------------------------------------------------------------------------
 
-# @messageRouter.route('/<unikey>/<receiver>', method="GET")
-# def messageProfile(unikey,receiver):
-#     # cur.execute('SELECT id,unikey, text, date_created, sender_id, receiver_id FROM messages WHERE unikey=(?) AND sender_id=(?)', (unikey,receiver))
-#     # user = helperMethods.userToMessages(cur.fetchone())
-#     # cur.execute('SELECT id,unikey, text, date_created, sender_id, receiver_id FROM messages WHERE unikey=(?)', (receiver,))
-#     # receiver = helperMethods.receiverToMessages(cur.fetchone())
-#     # user.update(receiver)
-#     dictMessage = {'user': unikey, 'receiver': receiver}
-#     return template('message.tpl',dictMessage)
-#
-# @messageRouter.route('/send', method="POST")
-# def messageSend():
-#     message = request.forms.get('textSend')
-#     user = helperMethods.get_user_details(unikey)
-#     if(user is not None and unikey and password):
-#         if(user['unikey'] == unikey and user['password'] == password):
-#             response.set_cookie('unikey', user['unikey'], secret=COOKIE_SECRET_KEY)
-#             redirect('/users/' + unikey)
-#         else:
-#             errors.append('Login Failed: Invalid UniKey or Password.')
-#     elif(user is None and unikey and password):
-#         errors.append("Login Failed: The user does not exist.")
-#     info = {
-#         'user': {'unikey': unikey},
-#         'error_message': errors
-#     }
-#     return template('login.tpl', info)
+def search_users(query):
+    user = helperMethods.token_user_info()
+    if(user['unikey'] != ""):
+        if(query is None or query == ""): # prevents error in front end
+            redirect('/messages')
+        else:
+            cur.execute("""
+                SELECT first_name, last_name, unikey
+                FROM users WHERE unikey LIKE ? OR first_name LIKE ? OR last_name LIKE ?
+                """, ('%' + query + '%', '%' + query + '%', '%' + query + '%'))
+            con.commit()
+            results = helperMethods.usersList(cur.fetchall())
+            if(len(results) == 0):
+                print(results)
+                results = [['0 results for ', '\'' + query + '\'', 'search?query=']]
+            return template('message2.tpl',{
+                    'user': user,
+                    'messages': "",
+                    'sender_names': results,
+                    'receiver': ""
+                })
+    else: # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'error_message': 'You have to login to search for user details.'
+        })

@@ -111,6 +111,10 @@ def post_edit_profile():
 def get_all_messages():
     return messages.all_messages_page()
 
+@get('/messages/search')
+def get_messages_search_users():
+    query = request.query.query
+    return messages.search_users(query)
 
 @get('/messages/<receiver>')
 def get_receiver_messages(receiver):
