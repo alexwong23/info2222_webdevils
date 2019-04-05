@@ -52,13 +52,13 @@
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">HTML</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li>
-                <a href="/html/basic-html">Basic HTML</a>
+                <a href="/content/HTML/Basic-HTML">Basic HTML</a>
               </li>
               <li>
-                <a href="/html/formatting">Formatting</a>
+                <a href="/content/HTML/Formatting">Formatting</a>
               </li>
               <li>
-                <a href="/html/forms-and-input">Forms and Input</a>
+                <a href="/content/HTML/Forms-and-Input">Forms and Input</a>
               </li>
             </ul>
           </li>
@@ -67,13 +67,13 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CSS</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <a href="/content/properties">Properties</a>
+                <a href="/content/CSS/Properties">Properties</a>
               </li>
               <li>
-                <a href="/content/css-selectors">Selectors</a>
+                <a href="/content/CSS/Selectors">Selectors</a>
               </li>
               <li>
-                <a href="/content/css-functions">Functions</a>
+                <a href="/content/CSS/Functions">Functions</a>
               </li>
             </ul>
           </li>
@@ -170,5 +170,5 @@
   <!-- <script src="/public/js/js-cookie.js" type="text/javascript"></script> -->
 
   <!-- main javascript codes -->
-  <script src="/public/js/main.js" type="text/javascript"></script>
+  <script src="/public/js/main2.js" type="text/javascript"></script>
 </html>

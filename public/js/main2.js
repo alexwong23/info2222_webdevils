@@ -17,13 +17,17 @@ $(document).ready(function () {
     }
   });
 
-  $('#captain').on('click', function () {
-      alert('hi')
+  $('.captain').on('click', function () {
 
+      var value = $(this).find('input').attr("value");
+
+
+      // $(".post_content_span").text(value);
+       // $('.post_content_span').html(value);
+       // $('.post_content_span').text(value);
+       $('.post_content_span').html(value);
+       return false;
   });
-
-  // if(Cookies.get('toggle') == 'hidden')
-  //   $('#sidebarCollapse').trigger('click');
 
 
 });

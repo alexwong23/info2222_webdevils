@@ -21,8 +21,45 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 #-----------------------------------------------------------------------------
 
 def index_page():
+    user = helperMethods.token_user_info()
+
+    cur.execute("""SELECT title,description from content WHERE category_id = 1  """)
+    con.commit()
+
+    HTML1 = helperMethods.usersList(cur.fetchall())
+
+    cur.execute("""SELECT title,description from content WHERE category_id = 2  """)
+    con.commit()
+
+    HTML2 = helperMethods.usersList(cur.fetchall())
+
+    cur.execute("""SELECT title,description from content WHERE category_id = 3  """)
+    con.commit()
+
+    HTML3 = helperMethods.usersList(cur.fetchall())
+
+
+    cur.execute("""SELECT title,description from content WHERE category_id = 4  """)
+    con.commit()
+
+    CSS1 = helperMethods.usersList(cur.fetchall())
+
+
+    cur.execute("""SELECT title,description from content WHERE category_id = 5  """)
+    con.commit()
+
+    CSS2 = helperMethods.usersList(cur.fetchall())
+
+    cur.execute("""SELECT title,description from content WHERE category_id = 6""")
+    con.commit()
+
+    CSS3 = helperMethods.usersList(cur.fetchall())
+
+
     return template("index.tpl", {
-        'user': helperMethods.token_user_info()
+        'user': helperMethods.token_user_info(),
+        'HTML': [HTML1,HTML2,HTML3],
+        'CSS': [CSS1,CSS2,CSS3]
     }) # unsafe from malicious content
 
 #-----------------------------------------------------------------------------
