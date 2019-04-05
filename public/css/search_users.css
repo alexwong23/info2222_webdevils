@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+#search_users input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the a */
+#search_users a {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  background: #E8303E;
+  color: white;
+  font-size: 15px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+#search_users a:hover {
+  background: #FF5841;
+}
+
+/* Clear floats */
+#search_users::after {
+  content: "";
+  clear: both;
+  display: table;
+}

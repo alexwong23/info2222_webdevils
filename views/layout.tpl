@@ -9,6 +9,10 @@
     <!-- font awesome -->
     <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
+    <!--Icons  -->
+    <!-- <link rel="stylesheet" text="text/css" href="/public/css/icons.min.css">
+    <css src="/public/css/icons.min.css"> -->
+
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" text="text/css" href="/public/css/scrollbar-custom.min.css">
     <css src="/public/css/scrollbar-custom.min.css">
@@ -19,9 +23,6 @@
     <css src="/public/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
-    <!--Icons  -->
-    <link rel="stylesheet" text="text/css" href="/public/css/icons.min.css">
-    <css src="/public/css/icons.min.css">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
 
     <!-- Font Awesome JS (collapsable Toggle) -->
@@ -39,7 +40,7 @@
       <nav id="sidebar">
         <div class="sidebar-header">
           <a href="/">
-            <img class="logo" src="/public/images/devil_icon.png" width="50" height="50" alt="Logo">
+            <img class="logo" src="/public/images/devil_iconv2.png" width="45" height="45" alt="Logo">
             Web<span>Devils</span>
           </a>
         </div>
