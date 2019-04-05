@@ -28,6 +28,9 @@ https://bootstrapious.com/p/bootstrap-sidebar
 Sign up
   - validation if fields not provided
 
+Change password
+  - success even when fields are empty (ERROR)
+
 CSS Front end for:
   - name of page shown above
   - home
@@ -35,16 +38,20 @@ CSS Front end for:
 
 users cannot message themselves
 
+both messaging and all messages page
+  - hover name text decoration
+  - messaging recent chat
+    - replace hard coded functionality with proper date time
+
 #-----------------------------------------------------------------------------
 # Extra
 #-----------------------------------------------------------------------------
 
+import icons???
+
 search user function
   - user should not be able to search for themselves
   - how does user interact with the page
-  - hover name text decoration
-
-messaging page
   - hover name text decoration
 
 enable sessions
@@ -52,13 +59,10 @@ enable sessions
 
 hashing password
 
-sessions
-  - login check --> check if user is already logged by comparing to session db
-  -  store token with readable value or token hashed using secret
-
 conventions
-  - snake case vs camel case
-  - single or double quotes
+  - snake case for python
+  - camel case for JS
+  - single quotes for all
 
 toggle sidebar functionality
   - should remain close after redirecting to other pages
