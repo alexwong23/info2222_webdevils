@@ -31,20 +31,21 @@ Sign up
 CSS Front end for:
   - name of page shown above
   - home
-  - content (html, css)
-  - messages
-  - profile page, edit and change password pages
-  - search bar in layout page
-  - about us & contact us
+  - profile page
 
-
-admin functions
-  - search for user
-  - ban and suspend user
+users cannot message themselves
 
 #-----------------------------------------------------------------------------
 # Extra
 #-----------------------------------------------------------------------------
+
+search user function
+  - user should not be able to search for themselves
+  - how does user interact with the page
+  - hover name text decoration
+
+messaging page
+  - hover name text decoration
 
 enable sessions
  - token validation for every page
@@ -61,5 +62,8 @@ conventions
 
 toggle sidebar functionality
   - should remain close after redirecting to other pages
+
+CSS Front end for:
+  - about us & contact us
 
 style.css also imports google font

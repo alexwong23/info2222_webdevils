@@ -33,4 +33,24 @@ $(document).ready(function () {
       window.location.replace('/messages/search?query=' + query)
     }
   })
+  $('#search_users_table .dropdown-menu button').click(function () {
+    $(this).parents('.dropdown').find('.btn').html($(this).text())
+    var newStatus = $(this).val()
+    var oldStatus = $(this).parents('.dropdown').find('.c_status').val()
+    if(oldStatus != newStatus) {
+      $(this).parents('.dropdown').find('.c_status').val(newStatus)
+      $(this).parents('.dropdown').find('.c_success').val('go')
+    }
+  })
+  $('#search_users_table .btn-danger').click(function () {
+    var query = $(this).parents('tr').find('.c_query').val()
+    var unikey = $(this).parents('tr').find('.c_unikey').val()
+    var status = $(this).parents('tr').find('.c_status').val()
+    var success = $(this).parents('tr').find('.c_success').val()
+    if(success == 'go') {
+      window.location.replace('/admin/change_status?query=' + query +
+        '&unikey=' + unikey + '&status=' + status)
+    }
+  })
+
 })

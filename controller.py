@@ -133,6 +133,12 @@ def post_messages(receiver):
 def get_admin():
     return admin.admin_page()
 
+@get('/admin/change_status')
+def get_change_status():
+    query = request.query.query
+    unikey = request.query.unikey
+    status = request.query.status
+    return admin.change_status(query, unikey, status)
 
 #-----------------------------------------------------------------------------
 # Error

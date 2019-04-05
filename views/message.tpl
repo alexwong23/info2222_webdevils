@@ -76,7 +76,7 @@
               <form method="post" class ="write_msg" placeholder="Type a message" action="/messages/{{receiver['unikey']}}/send">
                 <div class="form-group">
                   <div class="form-group">
-                    <label for="comment">Message To: {{receiver['first_name']}}  {{receiver['last_name']}}:</label>
+                    <label for="comment">Message To: <a href="/users/{{receiver['unikey']}}">{{receiver['first_name']}}  {{receiver['last_name']}}</a></label>
                     <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>

@@ -23,54 +23,79 @@ COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
 
 def all_messages_page():
     user = helperMethods.token_user_info()
-    #earliest sender would be seen first
-    cur.execute("""SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name, messages.receiver_unikey FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey= (?) ORDER BY messages.date_created DESC""",(user['unikey'],))
-    con.commit()
-    #contains the list of all the senders id
-    all_receivers = helperMethods.usersList(cur.fetchall())
+    if(user['unikey'] != ''):
+        #earliest sender would be seen first
+        cur.execute("""SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name, messages.receiver_unikey FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey= (?) ORDER BY messages.date_created DESC""",(user['unikey'],))
+        con.commit()
+        #contains the list of all the senders id
+        all_receivers = helperMethods.usersList(cur.fetchall())
 
-    return template('message2.tpl',{
+        return template('message2.tpl',{
+                'user': user,
+                'messages': "",
+                'sender_names': all_receivers,
+                'receiver': ""
+            })
+        # cannot redirect as we need to
+        # redirect('/messages/' + user['unikey'])
+    else:
+        return template('error.tpl', {
             'user': user,
-            'messages': "",
-            'sender_names': all_receivers,
-            'receiver': ""
+            'title': 'Error: Unable to access page',
+            'error_message': 'You have to login to view this page.'
         })
-    # cannot redirect as we need to
-    # redirect('/messages/' + user['unikey'])
+
+
 
 def messages_page(receiver):
     user = helperMethods.token_user_info()
-    receiver = helperMethods.get_user_details(receiver)
-    messages = helperMethods.messages_to_list(user['id'], receiver['id'])
+    if(user['unikey'] != ''):
+        receiver = helperMethods.get_user_details(receiver)
+        messages = helperMethods.messages_to_list(user['id'], receiver['id'])
 
-    cur.execute("""SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name, messages.receiver_unikey FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey= (?) ORDER BY messages.date_created DESC""",(user['unikey'],))
-    con.commit()
-    #contains the list of all the senders id
-    all_receivers = helperMethods.usersList(cur.fetchall())
+        cur.execute("""SELECT DISTINCT messages.receiver_first_name, messages.receiver_last_name, messages.receiver_unikey FROM users INNER JOIN messages ON (users.id == messages.sender_id) WHERE unikey= (?) ORDER BY messages.date_created DESC""",(user['unikey'],))
+        con.commit()
+        #contains the list of all the senders id
+        all_receivers = helperMethods.usersList(cur.fetchall())
 
-    return template('message.tpl', {
+        return template('message.tpl', {
+                'user': user,
+                'receiver': receiver,
+                'messages': messages,
+                'sender_names':all_receivers
+            })
+    else:
+        return template('error.tpl', {
             'user': user,
-            'receiver': receiver,
-            'messages': messages,
-            'sender_names':all_receivers
+            'title': 'Error: Unable to access page',
+            'error_message': 'You have to login to view this page.'
         })
 
 def messages_check(receiver,text_Message):
     user = helperMethods.token_user_info()
-    if(user['status'] == 2):
-        return template('error.tpl', {
-            'user': helperMethods.token_user_info(),
-            'title': 'Error: Account Muted',
-            'error_message': 'Your account is not allowed to message users. Please contact the administrator for further inquiries.'
-        })
-    receiver = helperMethods.get_user_details(receiver)
+    if(user['unikey'] != ''):
+        if(user['status'] == 2):
+            return template('error.tpl', {
+                'user': helperMethods.token_user_info(),
+                'title': 'Error: Account Muted',
+                'error_message': 'Your account is not allowed to message users. Please contact the administrator for further inquiries.'
+            })
+        receiver = helperMethods.get_user_details(receiver)
 
-    if text_Message is "":
-        redirect('/messages/'+receiver['unikey'])
+        if text_Message is "":
+            redirect('/messages/'+receiver['unikey'])
+        else:
+            cur.execute('INSERT INTO messages (date_created, text, sender_id, receiver_unikey,receiver_id, receiver_first_name, receiver_last_name) VALUES (datetime("now", "localtime"),?,?,?,?,?,?)',(text_Message, user['id'], receiver['unikey'], receiver['id'],receiver['first_name'], receiver['last_name']))
+            con.commit()
+            redirect('/messages/'+receiver['unikey'])
     else:
-        cur.execute('INSERT INTO messages (date_created, text, sender_id, receiver_unikey,receiver_id, receiver_first_name, receiver_last_name) VALUES (datetime("now", "localtime"),?,?,?,?,?,?)',(text_Message, user['id'], receiver['unikey'], receiver['id'],receiver['first_name'], receiver['last_name']))
-        con.commit()
-        redirect('/messages/'+receiver['unikey'])
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'error_message': 'You have to login to view this page.'
+        })
+
+
 
 #-----------------------------------------------------------------------------
 # Search Users in Messages
