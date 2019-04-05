@@ -172,5 +172,5 @@
   <!-- <script src="/public/js/js-cookie.js" type="text/javascript"></script> -->
 
   <!-- main javascript codes -->
-  <script src="/public/js/main2.js" type="text/javascript"></script>
+  <script src="/public/js/main.js" type="text/javascript"></script>
 </html>

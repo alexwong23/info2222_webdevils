@@ -1,6 +1,6 @@
 
-<link rel="stylesheet" text="text/css" href="/public/css/messages2.css">
-<css src="/public/css/messages2.css">
+<link rel="stylesheet" text="text/css" href="/public/css/messages.css">
+<css src="/public/css/messages.css">
 
 <link rel="stylesheet" text="text/css" href="/public/css/content.css">
 <css src="/public/css/content.css">
