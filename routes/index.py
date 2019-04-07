@@ -153,58 +153,29 @@ def signup_page():
 def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password):
     errors = helperMethods.formErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
     user = helperMethods.get_user_details(signup_unikey)
-    if(signup_unikey == ''):
-        return template('signup.tpl', {
-            'user': helperMethods.token_user_info(),
-            'error_message': errors
-        })
-    elif(len(signup_unikey) != 8):
-        errors.append('Unikey must have at least 8 character')
-        return template('signup.tpl', {
-            'user': helperMethods.token_user_info(),
-            'error_message': errors
-    })
-    elif(signup_first_name == ''):
-        return template('signup.tpl', {
-            'user': helperMethods.token_user_info(),
-            'error_message': errors
-        })
-    elif(signup_last_name == ''):
-        return template('signup.tpl', {
-            'user': helperMethods.token_user_info(),
-            'error_message': errors
+    # does it return error if values are None?
+    if(signup_unikey != '' and len(signup_unikey) != 8):
+        errors.append('Unikey must be 8 characters.')
+    elif (signup_unikey != '' and user['unikey'] == signup_unikey):
+        errors.append('An account with unikey \'' + signup_unikey + '\' has been already been created.')
+    if((signup_password != '' and len(signup_password) < 8) or
+            (signup_confirm_password != '' and len(signup_confirm_password) < 8)):
+        errors.append("Password must have at least 8 characters")
+    elif (signup_password != '' and signup_confirm_password != '' and signup_password != signup_confirm_password):
+        errors.append('Passwords do not match.')
+    if(len(errors) == 0):
+        cur.execute('INSERT INTO users (unikey, password, status, first_name, last_name, date_created) VALUES (?,?,?,?,?,(datetime("now", "localtime")))',(signup_unikey, signup_password, 0, signup_first_name, signup_last_name))
+        con.commit()
+        return template("login.tpl", {
+            'user': user,
+            'user_input': signup_unikey, # save user input
+            'error_message': ['Sign up successful, Please log in']
         })
     else:
-        if user['unikey'] == signup_unikey:
-            user = helperMethods.empty_user_details() # remove the user to correct layout navbar
-            return template("login.tpl", {
-                'user': user,
-                'user_input': signup_unikey, # save user input
-                'error_message': ['Account already exists, Please Sign In'],
-            })
-        else:
-            if(len(signup_password) < 8):
-                errors.append("Password must have at least 8 characters")
-                return template('signup.tpl', {
-                    'user': helperMethods.token_user_info(),
-                    'error_message': errors
-                })
-            else:
-                if (signup_password == signup_confirm_password):
-                    cur.execute('INSERT INTO users (unikey, password, status, first_name, last_name, date_created) VALUES (?,?,?,?,?,(datetime("now", "localtime")))',(signup_unikey, signup_password, 0, signup_first_name, signup_last_name))
-                    con.commit()
-                    return template("login.tpl", {
-                        'user': user,
-                        'user_input': signup_unikey, # save user input
-                        'error_message': ['Sign up successful, Please log in']
-                    })
-                else:
-                    errors.append('Passwords do not match. Please re-enter your new password.')
-                    return template('signup.tpl', {
-                        'user': helperMethods.token_user_info(),
-                        'error_message': errors
-                    })
-
+        return template('signup.tpl', {
+            'user': helperMethods.token_user_info(),
+            'error_message': errors
+        })
 
 #-----------------------------------------------------------------------------
 # About Us & Contact Us

@@ -12,8 +12,8 @@
       		<input name="signup_unikey" type="text" placeholder="Unikey" class="input pass"/>
           <input name="signup_first_name" type="text" placeholder="First name" class="input pass"/>
           <input name="signup_last_name" type="text" placeholder="Last name" class="input pass"/>
-          <input name="signup_password" type="password" placeholder="Choose a password" required="required" class="input pass"/>
-          <input name="signup_confirm_password" type="password" placeholder="Confirm password" required="required" class="input pass"/>
+          <input name="signup_password" type="password" placeholder="Choose a password" class="input pass"/>
+          <input name="signup_confirm_password" type="password" placeholder="Confirm password" class="input pass"/>
           % for error in error_message:
             <p>{{error}}</p>
           % end
