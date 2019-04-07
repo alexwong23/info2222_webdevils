@@ -153,28 +153,57 @@ def signup_page():
 def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password):
     errors = helperMethods.formErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
     user = helperMethods.get_user_details(signup_unikey)
-    if user['unikey'] == signup_unikey:
-        user = helperMethods.empty_user_details() # remove the user to correct layout navbar
-        return template("login.tpl", {
-            'user': user,
-            'user_input': signup_unikey, # save user input
-            'error_message': ['Account already exists, Please Sign In'],
+    if(signup_unikey == ''):
+        return template('signup.tpl', {
+            'user': helperMethods.token_user_info(),
+            'error_message': errors
+        })
+    elif(len(signup_unikey) != 8):
+        errors.append('Unikey must have at least 8 character')
+        return template('signup.tpl', {
+            'user': helperMethods.token_user_info(),
+            'error_message': errors
+    })
+    elif(signup_first_name == ''):
+        return template('signup.tpl', {
+            'user': helperMethods.token_user_info(),
+            'error_message': errors
+        })
+    elif(signup_last_name == ''):
+        return template('signup.tpl', {
+            'user': helperMethods.token_user_info(),
+            'error_message': errors
         })
     else:
-        if (signup_password == signup_confirm_password):
-            cur.execute('INSERT INTO users (unikey, password, status, first_name, last_name, date_created) VALUES (?,?,?,?,?,(datetime("now", "localtime")))',(signup_unikey, signup_password, 0, signup_first_name, signup_last_name))
-            con.commit()
+        if user['unikey'] == signup_unikey:
+            user = helperMethods.empty_user_details() # remove the user to correct layout navbar
             return template("login.tpl", {
                 'user': user,
                 'user_input': signup_unikey, # save user input
-                'error_message': ['Sign up successful, Please log in']
+                'error_message': ['Account already exists, Please Sign In'],
             })
         else:
-            errors.append('Passwords do not match. Please re-enter your new password.')
-            return template('signup.tpl', {
-                'user': helperMethods.token_user_info(),
-                'error_message': errors
-            })
+            if(len(signup_password) < 8):
+                errors.append("Password must have at least 8 characters")
+                return template('signup.tpl', {
+                    'user': helperMethods.token_user_info(),
+                    'error_message': errors
+                })
+            else:
+                if (signup_password == signup_confirm_password):
+                    cur.execute('INSERT INTO users (unikey, password, status, first_name, last_name, date_created) VALUES (?,?,?,?,?,(datetime("now", "localtime")))',(signup_unikey, signup_password, 0, signup_first_name, signup_last_name))
+                    con.commit()
+                    return template("login.tpl", {
+                        'user': user,
+                        'user_input': signup_unikey, # save user input
+                        'error_message': ['Sign up successful, Please log in']
+                    })
+                else:
+                    errors.append('Passwords do not match. Please re-enter your new password.')
+                    return template('signup.tpl', {
+                        'user': helperMethods.token_user_info(),
+                        'error_message': errors
+                    })
 
 
 #-----------------------------------------------------------------------------
