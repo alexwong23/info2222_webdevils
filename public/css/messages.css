@@ -5,6 +5,13 @@
     float:left;
 }
 
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+}
 .circle {
   width: 30px;
   height: 30px;
