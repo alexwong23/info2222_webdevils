@@ -3,6 +3,7 @@
 
 % rebase('layout.tpl', status=user['status'])
 
+<h2>Sign Up</h2>
 <div>
   <div class="signupcontainer">
     <div class="col-md-6" >
