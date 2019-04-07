@@ -80,6 +80,23 @@ def formErrors(form, required):
             messages.append(("Please provide a %s." % field))
     return messages
 
+def signupErrors(form, required):
+    messages = []
+    for field in required:
+        value = form.get(field)
+        if value is "" or value is None:
+            if(field == 'signup_unikey'):
+                messages.append(("Please provide a unikey."))
+            elif(field == 'signup_first_name'):
+                messages.append(("Please provide a first name."))
+            elif(field == 'signup_last_name'):
+                messages.append(("Please provide a last name."))
+            elif(field == 'signup_password'):
+                messages.append(("Please provide a password."))
+            elif(field == 'signup_confirm_password'):
+                messages.append(("Please confirm the password."))
+    return messages
+
 def token_user_info():
     token = request.get_cookie('token', secret=COOKIE_SECRET_KEY)
     cur.execute("""

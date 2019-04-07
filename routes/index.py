@@ -151,7 +151,7 @@ def signup_page():
 
 
 def signup_check(signup_unikey, signup_first_name, signup_last_name, signup_password, signup_confirm_password):
-    errors = helperMethods.formErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
+    errors = helperMethods.signupErrors(request.forms, ['signup_unikey', 'signup_first_name', 'signup_last_name', 'signup_password', 'signup_confirm_password'])
     user = helperMethods.get_user_details(signup_unikey)
     # does it return error if values are None?
     if(signup_unikey != '' and len(signup_unikey) != 8):
