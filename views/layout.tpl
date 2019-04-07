@@ -78,12 +78,12 @@
               </li>
             </ul>
           </li>
-          <li>
+          <!-- <li>
             <a href="/about">About Us</a>
           </li>
           <li>
             <a href="/contact">Contact Us</a>
-          </li>
+          </li> -->
         </ul>
 
         <ul class="list-unstyled CTAs">
@@ -108,12 +108,12 @@
               Web<span>Devils</span>
             </a>
             <button type="button" id="sidebarCollapse" class="btn btn-info">
-              <i class="fas fa-align-left"></i>
+              <!-- <i class="fas fa-align-left"></i> -->
               <span>Toggle Sidebar</span>
             </button>
 
             <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="fas fa-align-justify"></i>
+              <!-- <i class="fas fa-align-justify"></i> -->
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -121,7 +121,10 @@
                 % if(status == ""):
                 <li class="nav-item active">
                   <!-- <button type="button" class="btn btn-default btn-sm"> -->
-                  <a class="nav-link" href="/login"><span class="glyphicon">&#xe008;</span> Login</a>
+                  <a class="nav-link" href="/login">
+                    <!-- <span class="glyphicon">&#xe008;</span> -->
+                    Login
+                  </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/signup">Sign Up</a>

@@ -20,11 +20,16 @@ COOKIE_SECRET_KEY = "some-secret"  # prevent cookie manipulation
 # Users
 # -----------------------------------------------------------------------------
 
-
 def redirect_profile_page():
     user = helperMethods.token_user_info()
-    redirect('/users/' + user['unikey'])
-
+    if(user['unikey'] != ""):
+        redirect('/users/' + user['unikey'])
+    else:  # user not logged in
+        return template('error.tpl', {
+            'user': user,
+            'title': 'Error: Unable to access page',
+            'error_message': 'You have to login to view this page.'
+        })
 
 def profile_page(unikey):
     user = helperMethods.token_user_info()

@@ -26,20 +26,11 @@ https://bootstrapious.com/p/bootstrap-sidebar
 #-----------------------------------------------------------------------------
 
 Sign up
-  - validation if fields not provided
-
-Change password
-  - success even when fields are empty (ERROR)
-
-CSS Front end for:
-  - name of page shown above
-  - home
-  - profile page
+  - validation code is unreadable
 
 users cannot message themselves
 
 both messaging and all messages page
-  - hover name text decoration
   - messaging recent chat
     - replace hard coded functionality with proper date time
 
@@ -53,9 +44,6 @@ search user function
   - user should not be able to search for themselves
   - how does user interact with the page
   - hover name text decoration
-
-enable sessions
- - token validation for every page
 
 hashing password
 
