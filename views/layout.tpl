@@ -68,7 +68,7 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CSS</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <a href="/content/CSS/Properties">Properties</a>
+                <a href="/content/CSS/Selectors">Properties</a>
               </li>
               <li>
                 <a href="/content/CSS/Selectors">Selectors</a>
