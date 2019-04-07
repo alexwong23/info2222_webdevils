@@ -50,7 +50,8 @@ def edit_profile_page(unikey):
     user = helperMethods.token_user_info()
     if(user['unikey'] != ""):
         return template('editprofile.tpl', {
-            'user': user
+            'user': user,
+            'error': ''
         })
     else:  # user not logged in
         return template('error.tpl', {
@@ -63,6 +64,11 @@ def edit_profile_page(unikey):
 def edit_profile_check(first_name, last_name):
     user = helperMethods.token_user_info()
     if(user['unikey'] != ""):
+        if first_name == "" or last_name == "":
+            return template('editprofile.tpl', {
+                'user': user,
+                'error': 'First name or last name should not be empty. Please re-enter.'
+            })
         cur.execute('UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)',
                     (first_name, last_name, user['unikey']))
         con.commit()
