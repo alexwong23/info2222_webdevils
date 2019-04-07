@@ -13,16 +13,17 @@
 
     <div class="row justify-content-md-center ml-5">
         <div class="col">
-        <div class="circle"> {{any_user['first_name'][0]}} </div>
+            <div class="circle"> {{any_user['first_name'][0]}} </div>
         </div>
     </div>
 
+
     <div class="row justify-content-md-center mr-5 mb-3">
         <div class="col text-right ">
-        <h4 class="text-secondary">First Name:</h4>
+            <h4 class="text-secondary">First Name:</h4>
         </div>
         <div class="col">
-        <h4> {{any_user['first_name']}}</h4>
+            <h4> {{any_user['first_name']}}</h4>
         </div>
     </div>
 
