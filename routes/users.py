@@ -1,6 +1,7 @@
 from bottle import template, request, redirect
 
-import random, helperMethods
+import random
+import helperMethods
 '''
     Our Model class
     This should control the actual "logic" of your website
@@ -13,15 +14,17 @@ import random, helperMethods
 import sqlite3
 con = sqlite3.connect('./db/webdevils.db')
 cur = con.cursor()
-COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
+COOKIE_SECRET_KEY = "some-secret"  # prevent cookie manipulation
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Users
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 
 def redirect_profile_page():
     user = helperMethods.token_user_info()
     redirect('/users/' + user['unikey'])
+
 
 def profile_page(unikey):
     user = helperMethods.token_user_info()
@@ -31,16 +34,17 @@ def profile_page(unikey):
             'user': user,
             'any_user': any_user
         })
-    else: # user not logged in
+    else:  # user not logged in
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
             'error_message': 'You have to login to view this page.'
         })
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Edit Profile
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 
 def edit_profile_page(unikey):
     user = helperMethods.token_user_info()
@@ -48,29 +52,32 @@ def edit_profile_page(unikey):
         return template('editprofile.tpl', {
             'user': user
         })
-    else: # user not logged in
+    else:  # user not logged in
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
             'error_message': 'You have to login to view this page.'
         })
+
 
 def edit_profile_check(first_name, last_name):
     user = helperMethods.token_user_info()
     if(user['unikey'] != ""):
-        cur.execute('UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)', (first_name, last_name, user['unikey']))
+        cur.execute('UPDATE users SET first_name=(?), last_name=(?) WHERE unikey=(?)',
+                    (first_name, last_name, user['unikey']))
         con.commit()
         return redirect(f"/users/{user['unikey']}")
-    else: # user not logged in
+    else:  # user not logged in
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
             'error_message': 'You have to login to view this page.'
         })
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Change Password
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 
 def change_password_page(unikey):
     user = helperMethods.token_user_info()
@@ -79,7 +86,7 @@ def change_password_page(unikey):
             'user': user,
             'error': ''
         })
-    else: # user not logged in
+    else:  # user not logged in
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
@@ -90,30 +97,38 @@ def change_password_page(unikey):
 def change_password_check(new_password, confirm_password):
     user = helperMethods.token_user_info()
     if(user['unikey'] != ""):
+        if len(new_password) < 8 or len(confirm_password) < 8:
+            return template('changepassword.tpl', {
+                'user': user,
+                'error': 'Passwords has to be at least 8 characters long. Please re-enter your new password.'
+            })
         if (new_password == confirm_password):
-            cur.execute('UPDATE users SET password=(?) WHERE unikey=(?)', (new_password, user['unikey']))
+            cur.execute('UPDATE users SET password=(?) WHERE unikey=(?)',
+                        (new_password, user['unikey']))
             con.commit()
-            return redirect("/users/{user['unikey']}")
+
+            return redirect(f"/users/{user['unikey']}")
         else:
-            return template('changepassword.tpl', info = {
+            return template('changepassword.tpl', {
                 'user': user,
                 'error': 'Passwords do not match. Please re-enter your new password.'
             })
-    else: # user not logged in
+    else:  # user not logged in
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
             'error_message': 'You have to login to view this page.'
         })
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Search Messages
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 
 def search_users(query):
     user = helperMethods.token_user_info()
     if(user['unikey'] != ""):
-        if(query is None or query == ""): # prevents error in front end
+        if(query is None or query == ""):  # prevents error in front end
             return template('search_users', {
                 'user': user,
                 'query': query,
@@ -133,7 +148,7 @@ def search_users(query):
                 'query': query,
                 'results': results
             })
-    else: # user not logged in
+    else:  # user not logged in
         return template('error.tpl', {
             'user': user,
             'title': 'Error: Unable to access page',
