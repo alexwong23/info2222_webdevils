@@ -1,5 +1,5 @@
-import sqlite3
-con = sqlite3.connect('./db/webdevils.db')
+import helperMethods
+con = helperMethods.con
 cur = con.cursor()
 
 # create schema

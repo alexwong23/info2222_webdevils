@@ -1,7 +1,6 @@
 from bottle import template, request, redirect
 
-import random
-import helperMethods
+import random, helperMethods
 '''
     Our Model class
     This should control the actual "logic" of your website
@@ -11,10 +10,9 @@ import helperMethods
 '''
 
 # remove this and put it in sql file handler
-import sqlite3
-con = sqlite3.connect('./db/webdevils.db')
+con = helperMethods.con
 cur = con.cursor()
-COOKIE_SECRET_KEY = "some-secret"  # prevent cookie manipulation
+COOKIE_SECRET_KEY = helperMethods.COOKIE_SECRET_KEY  # prevent cookie manipulation
 
 # -----------------------------------------------------------------------------
 # Users

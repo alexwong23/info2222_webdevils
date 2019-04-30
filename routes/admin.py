@@ -10,10 +10,9 @@ import string, random, helperMethods
 '''
 
 # remove this and put it in sql file handler
-import sqlite3
-con = sqlite3.connect('./db/webdevils.db')
+con = helperMethods.con
 cur = con.cursor()
-COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
+COOKIE_SECRET_KEY = helperMethods.COOKIE_SECRET_KEY  # prevent cookie manipulation
 
 #-----------------------------------------------------------------------------
 # Admin
