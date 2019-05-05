@@ -8,15 +8,15 @@ import routes, controller
 # It might be a good idea to move the following settings to a config file and then load them
 
 # # development
-# host = 'localhost'
-# debug = True
-# reloader = True
+host = 'localhost'
+debug = True
+reloader = True
 # remember to change db path in helperMethods
 
 # production
-host = '0.0.0.0' # IP address or 0.0.0.0
-debug = False
-reloader = False
+# host = '0.0.0.0' # IP address or 0.0.0.0
+# debug = False
+# reloader = False
 # remember to change db path in helperMethods
 
 port = 8080 # change to the appropriate port to host

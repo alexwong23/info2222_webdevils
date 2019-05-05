@@ -65,16 +65,16 @@
           </li>
           <!--CSS menu tab  -->
           <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CSS</a>
+            <a href="#pageSubmenu"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CSS</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <a href="/content/CSS/Selectors">Properties</a>
+                <a href="/content/CSS/Selectors" >Properties</a>
               </li>
               <li>
                 <a href="/content/CSS/Selectors">Selectors</a>
               </li>
               <li>
-                <a href="/content/CSS/Functions">Functions</a>
+                <a href="/content/CSS/Functions" >Functions</a>
               </li>
             </ul>
           </li>
@@ -136,13 +136,13 @@
                     </li>
                   % end
                 <li class="nav-item">
-                  <a class="nav-link" href="/messages">Messages</a>
+                  <a class="nav-link" id = "messages_link" href="/messages">Messages</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/users">Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/logout">Logout</a>
+                  <a class="nav-link" id = "logout_link" href="/logout">Logout</a>
                 </li>
                 % end
               </ul>

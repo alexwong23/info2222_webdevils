@@ -15,7 +15,6 @@
                     <div class="inbox_people">
                         <div class="inbox_chat">
                             <div class="inbox_chat">
-
                                 <div class = "header">
                                     <div class = "header_col_Name col-lg"> Name </div>
                                 </div>
@@ -25,8 +24,8 @@
                                 %if (i%2 == 0):
                                 <a href=""  >
                                     <div class="chat_list content_category_box captain">
-                                        <div class ="row content_category " >
-                                            <div class="col-lg content_category " > {{content[i][0]}}</div>
+                                        <div class ="row content_category" >
+                                            <div class="col-lg content_category" >{{content[i][0]}}</div>
                                             <input type="hidden" class="contentID" value="{{content[i][1]}}">
                                         </div>
                                     </div>

@@ -20,7 +20,7 @@
             <div class="stylish-input-group" id="messages_search_users" class="form-group">
               <input value="" name="search" type="text" placeholder="Search...">
               <span class="input-group-addon">
-                <button class="btn btn-primary" type="button">Search</button>
+                <button class="btn btn-primary" id ="search_messages" type="button">Search</button>
               </span>
             </div>
           </div>
@@ -79,7 +79,7 @@
                     <label for="comment">Message To: <a href="/users/{{receiver['unikey']}}">{{receiver['first_name']}}  {{receiver['last_name']}}</a></label>
                     <textarea name="textSend"class="form-control" rows="2" id="comment"></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" id = "ToUsersendMessage " class="btn btn-primary userMessages">Submit</button>
                 </div>
               </form>
             </div>
