@@ -6,6 +6,7 @@ import time
 import sys
 import csv
 import getpass
+import random
 
 from selenium import webdriver
 
@@ -22,8 +23,16 @@ default_target_webdevils = "http://localhost:8080"
 def scraper(target):
 
     driver = webdriver.Firefox()
-    account_tries = {'user1':'1234','user2':'webdevils'}
 
+    false_tries={'user1':'1234'}
+
+    account_tries = {'user2':'webdevils',
+                    'user3':'password',
+                    'user4': 'password'}
+
+
+
+    val = random.randint(0,len(account_tries))
 
     print("Webdevils login creds:")
 
@@ -40,9 +49,32 @@ def scraper(target):
     except:
         print("Unable to login")
 
-    #successful to login page
-    for username,password in account_tries.items():
+    #Invalid user to login page
+    for username,password in false_tries.items():
 
+
+        try:
+            username_field = driver.find_element_by_name("unikey")
+            username_field.clear()
+            username_field.send_keys(username)
+
+            time.sleep(1)
+
+            password_field = driver.find_element_by_name("password")
+            password_field.clear()
+            password_field.send_keys(password)
+
+            # Hit the button
+            login_button = driver.find_element_by_class_name("inputButton")
+            login_button.click()
+            time.sleep(2)
+
+        except:
+            print("error in logging in")
+
+
+        #Valid user login (at random)
+        username,password = random.choice(list(account_tries.items()))
         try:
             username_field = driver.find_element_by_name("unikey")
             username_field.clear()
