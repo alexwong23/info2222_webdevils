@@ -1,7 +1,7 @@
 from bottle import template, request
 
 import sqlite3
-con = sqlite3.connect('/home/rh/project/db/webdevils.db') # production env
+con = sqlite3.connect('~/info2222_webdevils/db/webdevils.db') # production env
 # con = sqlite3.connect('./db/webdevils.db') # development env
 cur = con.cursor()
 COOKIE_SECRET_KEY = "some-secret" # prevent cookie manipulation
