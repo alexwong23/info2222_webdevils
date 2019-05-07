@@ -18,7 +18,7 @@
           % for error in error_message:
             <p>{{error}}</p>
           % end
-          <input type="submit" value="Sign me up!" class="inputButton"/>
+          <input type="submit" id = "signup_submit_button" value="Sign me up!" class="inputButton"/>
         </form>
       </div>
     </div>
