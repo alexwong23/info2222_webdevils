@@ -12,7 +12,7 @@ from selenium import webdriver
 #------------------------------------------------
 
 # default_target = "https://canvas.sydney.edu.au/courses/14331/groups#tab-6293"
-default_target_webdevils = "http://localhost:8080"
+default_target_webdevils = "https://10.83.67.113"
 #------------------------------------------------
 # Useage:
 # python canvas_group_scraper.py <target groups page>
@@ -28,7 +28,7 @@ def scraper(target):
 
     admin ={'admin1':'password'}
 
-    driver.get("http://localhost:8080")
+    driver.get("https://10.83.67.113")
     time.sleep(1)
 
     try:
@@ -150,7 +150,7 @@ def scraper(target):
     except:
         print("Unable to message")
 
-    
+
 
     driver.get(target)
     driver.close()
