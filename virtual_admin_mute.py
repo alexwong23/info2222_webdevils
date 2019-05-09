@@ -29,7 +29,26 @@ def scraper(target):
     admin ={'admin1':'password'}
 
     driver.get("https://10.83.67.113")
-    time.sleep(1)
+
+    securityFlag = 0
+
+    try:
+        security_check = driver.find_element_by_id("advancedButton")
+        securityFlag = 1
+    except:
+        securityFlag = 0
+
+    if securityFlag == 1:
+        security_check = driver.find_element_by_id("advancedButton")
+        security_check.click()
+
+        security_check2 = driver.find_element_by_id("exceptionDialogButton")
+        security_check2.click()
+
+
+    logo_element = driver.find_element_by_class_name("logo")
+    logo_element.click()
+
 
     try:
         login_element = driver.find_element_by_xpath("//a[@href='/login']")
