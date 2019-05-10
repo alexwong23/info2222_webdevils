@@ -76,19 +76,25 @@ def scraper(target):
         first_field.clear()
         first_field.send_keys(different_password.get("first_name"))
 
-
+        time.sleep(1)
         last_field = driver.find_element_by_name("signup_last_name")
         last_field.clear()
         last_field.send_keys(different_password.get("last_name"))
+
+        time.sleep(1)
 
         password_field = driver.find_element_by_name("signup_password")
         password_field.clear()
         password_field.send_keys(different_password.get("password"))
 
+        time.sleep(1)
+
 
         confirm_field = driver.find_element_by_name("signup_confirm_password")
         confirm_field.clear()
         confirm_field.send_keys(different_password.get("confirm"))
+
+        time.sleep(1)
 
         #HIT SUBMIT
         signup_submit = driver.find_element_by_id("signup_submit_button")
@@ -122,11 +128,12 @@ def scraper(target):
         first_field.clear()
         first_field.send_keys(exist_virtual.get("first_name"))
 
-
+        time.sleep(1)
         last_field = driver.find_element_by_name("signup_last_name")
         last_field.clear()
         last_field.send_keys(exist_virtual.get("last_name"))
 
+        time.sleep(1)
 
         password_field = driver.find_element_by_name("signup_password")
         password_field.clear()
@@ -136,6 +143,7 @@ def scraper(target):
         confirm_field.clear()
         confirm_field.send_keys(exist_virtual.get("confirm"))
 
+        time.sleep(1)
         #HIT SUBMIT
         signup_submit = driver.find_element_by_id("signup_submit_button")
         signup_submit.click();
@@ -165,17 +173,25 @@ def scraper(target):
         first_field.clear()
         first_field.send_keys(new_virtual.get("first_name"))
 
+
+        time.sleep(1)
         last_field = driver.find_element_by_name("signup_last_name")
         last_field.clear()
         last_field.send_keys(new_virtual.get("last_name"))
+
+        time.sleep(1)
 
         password_field = driver.find_element_by_name("signup_password")
         password_field.clear()
         password_field.send_keys(new_virtual.get("password"))
 
+        time.sleep(1)
+
         confirm_field = driver.find_element_by_name("signup_confirm_password")
         confirm_field.clear()
         confirm_field.send_keys(new_virtual.get("confirm"))
+
+        time.sleep(1)
 
         #HIT SUBMIT
         signup_submit = driver.find_element_by_id("signup_submit_button")
@@ -192,7 +208,7 @@ def scraper(target):
         password_field = driver.find_element_by_name("password")
         password_field.clear()
         password_field.send_keys(new_virtual.get("password"))
-
+        time.sleep(1)
         # Hit the button
         login_button = driver.find_element_by_class_name("inputButton")
         login_button.click()

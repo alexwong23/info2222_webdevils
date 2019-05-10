@@ -94,15 +94,23 @@ def scraper(target):
         submit_search = driver.find_element_by_class_name("submit_search")
         submit_search.click()
 
+        time.sleep(1)
+
         #CHANGE STATUS TO MUTE
         banUser_element = driver.find_element_by_id("dropdownMenu2")
         banUser_element.click()
 
+        time.sleep(1)
+
+        #YUEWEN IF YOUR CODE DOES NOT RUN, THEN THIS IS THE SPOT YOU COME TO 
         banUser_element = driver.find_element_by_class_name("option_status_mute")
         banUser_element.click()
+        time.sleep(4)
 
+        time.sleep(1)
         banUser_element = driver.find_element_by_class_name("btn-danger")
         banUser_element.click()
+        time.sleep(1)
     except:
         print("Unable to mute")
 
@@ -129,6 +137,8 @@ def scraper(target):
         password_field = driver.find_element_by_name("password")
         password_field.clear()
         password_field.send_keys(alan.get("password"))
+
+        time.sleep(1)
 
             # Hit the button
         login_button = driver.find_element_by_class_name("inputButton")

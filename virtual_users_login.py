@@ -127,6 +127,8 @@ def scraper(target):
         input_string = "//a[@href='/users/"+str2+"/changepassword']"
         changePassword_element = driver.find_element_by_xpath(input_string)
         changePassword_element.click()
+
+        time.sleep(2)
     except:
         print("error in changePassword_element")
 
@@ -201,7 +203,7 @@ def scraper(target):
         messages_element = driver.find_element_by_id("messages_link")
         messages_element.click()
 
-
+        time.sleep(2)
         messagesSearch = driver.find_element_by_xpath("//input[@name='search']")
         messagesSearch.clear()
         messagesSearch.send_keys("alan")
@@ -217,10 +219,13 @@ def scraper(target):
         user_click = driver.find_element_by_class_name("chat_ib")
         user_click.click()
 
+        time.sleep(2)
 
         messages_text = driver.find_element_by_class_name("form-control")
         messages_text.clear()
         messages_text.send_keys("Hey how are you doing?")
+
+        time.sleep(2)
 
         #TODO -> Need to sort out submit button
 
