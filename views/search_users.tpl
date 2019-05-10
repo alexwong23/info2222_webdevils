@@ -42,7 +42,7 @@
           </button>
           <div class="dropdown-menu option_status" id="option_status1" aria-labelledby="dropdownMenu2">
             <button class="dropdown-item" value="0" type="button">Normal User</button>
-            <button class="dropdown-item" value="2" type="button">Muted</button>
+            <button class="dropdown-item option_status_mute" value="2" type="button">Muted</button>
             <button class="dropdown-item option_status_ban" value="3" type="button">Banned</button>
           </div>
           <div class="change_status_inputs">

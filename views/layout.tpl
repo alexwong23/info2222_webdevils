@@ -127,7 +127,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/signup">Sign Up</a>
+                  <a class="nav-link" id = "signup_page_button" href="/signup">Sign Up</a>
                 </li>
                 % else:
                   % if(status == 1):
