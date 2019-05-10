@@ -155,14 +155,15 @@ def scraper(target):
 
 #----------------------------------------------------------------
 #SIGNUP AS A NEW USER
-    new_virtual = {
-    'unikey' : 'info2222',
+    new_virtual =
+    {'unikey' : 'info2227',
     'first_name' : 'Kris',
     'last_name' : 'Wu',
     'password' : '12345678',
     'confirm' : '12345678'
     }
     try:
+
         #FILL IN DETAILS
         unikey_field = driver.find_element_by_name("signup_unikey")
         unikey_field.clear()
