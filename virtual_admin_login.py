@@ -24,7 +24,7 @@ def scraper(target):
 
     driver = webdriver.Firefox()
 
-    admin ={'admin1':'webdevils'}
+    admin ={'admin1':'password'}
 
     alan_account={'user5':'webdevils','user5':'password'}
 
@@ -91,7 +91,8 @@ def scraper(target):
 
     # extract user name
     str = driver.current_url
-    str2 = str[28:]
+    str2 = str[27:]
+
 
     try:
 
@@ -169,13 +170,13 @@ def scraper(target):
         newpassword_element = driver.find_element_by_name("new_password")
         newpassword_element.clear()
         time.sleep(1)
-        newpassword_element.send_keys("password")
+        newpassword_element.send_keys("password1234")
 
 
         confirmpassword_element = driver.find_element_by_name("confirm_password")
         confirmpassword_element.clear()
         time.sleep(2)
-        confirmpassword_element.send_keys("password")
+        confirmpassword_element.send_keys("password1234")
 
         submit = driver.find_element_by_xpath("//button[@type='submit']")
         submit.click()
