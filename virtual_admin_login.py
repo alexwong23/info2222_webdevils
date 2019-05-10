@@ -92,8 +92,6 @@ def scraper(target):
     # extract user name
     str = driver.current_url
     str2 = str[27:]
-
-
     try:
 
         changePassword_element = driver.find_element_by_xpath("//a[@href='/users/search']")

@@ -118,9 +118,9 @@ def scraper(target):
 
     # extract user name
     str = driver.current_url
-    print(str)
+    # print(str)
     str2 = str[27:]
-    print(str2)
+    # print(str2)
 
     try:
 
