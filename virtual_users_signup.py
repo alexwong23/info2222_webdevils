@@ -155,8 +155,13 @@ def scraper(target):
 
 #----------------------------------------------------------------
 #SIGNUP AS A NEW USER
-    new_virtual =
-    {'unikey' : 'info2227',
+    x = random.randint(1,10001)
+
+    strUser = 'info' + str(x)
+
+    print('your user name is' + strUser)
+
+    new_virtual = {'unikey' : strUser,
     'first_name' : 'Kris',
     'last_name' : 'Wu',
     'password' : '12345678',

@@ -56,7 +56,7 @@ def scraper(target):
 
     logo_element = driver.find_element_by_class_name("logo")
     logo_element.click()
-    
+
     try:
         login_element = driver.find_element_by_xpath("//a[@href='/login']")
         login_element.click()
