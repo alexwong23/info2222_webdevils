@@ -6,8 +6,13 @@ import time
 import sys
 import csv
 import getpass
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 from selenium import webdriver
+
+cap = DesiredCapabilities().FIREFOX
+cap["marionette"] = False
 
 #------------------------------------------------
 
@@ -20,6 +25,7 @@ default_target_webdevils = "https://10.83.67.113"
 
 
 def scraper(target):
+
 
     driver = webdriver.Firefox()
     groups = {}
