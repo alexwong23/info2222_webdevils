@@ -7,9 +7,17 @@ import sys
 import csv
 import getpass
 
+from selenium import webdriver
 
 
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+# cap = DesiredCapabilities().FIREFOX
+# cap["marionette"] = False
+# browser = webdriver.Firefox(capabilities=cap, executable_path="C:\\path\\to\\geckodriver.exe")
+# browser.get('http://google.com/')
+# browser.quit()
 
 
 #------------------------------------------------
@@ -24,12 +32,16 @@ default_target_webdevils = "https://10.83.67.113"
 
 def scraper(target):
 
-
     driver = webdriver.Firefox()
     groups = {}
 
 
     print("Webdevils login creds:")
+
+
+    cap = DesiredCapabilities().FIREFOX
+    cap["marionette"] = False
+    browser = webdriver.Firefox(capabilities=cap, executable_path="C:\\path\\to\\geckodriver.exe")
 
     print("Loading login portal")
     driver.get("https://10.83.67.113")
