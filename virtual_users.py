@@ -9,17 +9,6 @@ import getpass
 
 from selenium import webdriver
 
-
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-# cap = DesiredCapabilities().FIREFOX
-# cap["marionette"] = False
-# browser = webdriver.Firefox(capabilities=cap, executable_path="C:\\path\\to\\geckodriver.exe")
-# browser.get('http://google.com/')
-# browser.quit()
-
-
 #------------------------------------------------
 
 # default_target = "https://canvas.sydney.edu.au/courses/14331/groups#tab-6293"
@@ -37,11 +26,6 @@ def scraper(target):
 
 
     print("Webdevils login creds:")
-
-
-    cap = DesiredCapabilities().FIREFOX
-    cap["marionette"] = False
-    browser = webdriver.Firefox(capabilities=cap, executable_path="C:\\path\\to\\geckodriver.exe")
 
     print("Loading login portal")
     driver.get("https://10.83.67.113")
